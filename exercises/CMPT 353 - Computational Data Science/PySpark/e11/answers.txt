@@ -1,3 +1,0 @@
-1. I have cached four dataframes that were used in the two join operations. If I hadn't cached any of the dataframes, the program would read the dataframes during join operations which is very expensive (as operations are just execution plans and variable values are not saved in the memory).
-
-2. Based on the YARN frontend runtime, using "hint('broadcast')" in the smaller datframes reduced the running time to 48 seconds from 72 seconds.

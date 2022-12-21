@@ -1,8 +1,0 @@
-1. 
-- The k-nearest neighbours classifier model, using LAB color, performed the best for the color-prediction task. 
-- The k-nearest neighbours classifier algorithm looks at the nearest k training values and chooses the most probable category, and this works for the color-prediction task because: color values are ordinal, and most color categories are bounded by some color values. 
-- And the LAB model did better than the RGB model because the dimensions of LAB color are different, and thus, LAB color values. Therefore, distances among the distinct RGB and LAB color values vary in the training process of the two models.
-
-2.
-- The model is predicting wrong values for cities when the true/actual city is on a close geographic proximity with the predicted city. I would say that it is somewhat reasonable for the model to predict such a wrong value. 
-- To make the model better, two potential features that could be added are the daily wind speed and amount of humidity.

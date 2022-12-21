@@ -1,3 +1,0 @@
-1. The distribution of residuals is left-skewed and has the pattern of a normal distribution. Therefore, it can be considered normal enough to look at the OLS p-value, and if the model is significant, we can reasonably conclude that the ratings are increasing since the slope is positive.
-
-2. Yes, looking at the residuals plot and the captured signal, I do think the new "better" prediction, using linear regression, is letting the Kalman filter do a better job of capturing the true signal in the noise.

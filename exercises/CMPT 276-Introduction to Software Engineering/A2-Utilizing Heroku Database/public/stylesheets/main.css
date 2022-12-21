@@ -1,0 +1,44 @@
+.form-control {
+  display: inline-block
+}
+.dataBlock{
+  color: black;
+  margin-block: 10px;
+  float: left;
+}
+.dataBlock ul:hover {
+  font-size: 150%;
+}
+#count {
+  display: inline-block;
+  margin-bottom: 20px;
+  font-family: monospace;
+  font-weight: 500;
+  font-size: large;
+  width: 500px;
+  clear: both;
+}
+#info {
+  font-family: monospace;
+  font-weight: lighter;
+  font-size: medium;
+  color: red;
+  clear: both;
+  
+}
+#add_main {
+  clear: both;
+  margin-bottom: 15px
+}
+#sid_check {
+  font-family: monospace;
+  font-weight: lighter;
+  font-size: medium;
+  color: red;
+  margin-block: 25px;
+  clear: both;
+}
+input::placeholder {
+  text-align: right;
+  font-style: italic;
+}

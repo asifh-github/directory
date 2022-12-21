@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <%- include ("../partials/header.ejs") %>
+</head>
+<body onload="index_setup(<%= students.length %>)">
+  <header class="container">
+    <h1 class="text-center text-muted font-weight-light font-italic">
+      Student Database #276
+    </h1>
+  </header>
+  <main>
+    <div id="data_main" class="container text-center">
+      <p id="count" class="alert alert-info" role="alert">
+        Total Enrollments: <%= students.length %>
+      </p>
+      <p id="info">"Click for Student Info."</p>
+    </div>
+    <div id="mainPage" class="container-fluid text-center"> 
+      <% students.forEach(function(r) { %>
+        <div class="container dataBlock"
+        style="width:<%= r.age * 13 %>px; min-width:180px; max-width:480px;"
+        onclick="view_main(`<%= r.sid %>`)">
+          <ul class="list-group">
+            <li class="list-group-item">
+              <%= r.sid %>
+            </li>
+            <li class="list-group-item">
+              <%= r.name %>
+            </li>
+            <li class="list-group-item">
+              <em>GPA:</em> <%= r.gpa %>
+            </li>
+          </ul>
+        </div>
+      <% }); %>
+    </div>
+    <button id="add_main" class="container text-center btn btn-block btn-dark" style="width: 500px;"
+    onclick="add_main()">
+      Add New Student
+    </button>
+  </main>
+  <footer></footer>
+  <script type="text/javascript" src="main.js"></script>
+</body>
+</html>

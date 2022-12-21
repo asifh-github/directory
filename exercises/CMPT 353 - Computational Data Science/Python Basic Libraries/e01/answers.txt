@@ -1,0 +1,5 @@
+1. Where you did the same calculations with NumPy and Pandas, which did you find easier to work with? Which code do you think is easier to read?
+=> I find Pandas more convenient and easier to work with than NumPy. In my opinion, code written using Pandas is also easier to read.
+
+2. What were the running times of the two pivot_months_* functions? How can you explain the difference?
+=> The run time of code written using Pandas takes 22 ms ± 448 µs per loop. And the run time of code written using generic loop takes 525 ms ± 20.4 ms per loop, which is much longer. This large difference in time is due to Pandas' convinient table-like structures such as dataframe or series which allows easier and faster data mailuputation with respect to rows and columns.

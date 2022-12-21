@@ -1,0 +1,12 @@
+1.
+No work, reddit-0: 11.2 seconds
+
+With no schema specified and not caching, reddit-2b: 49.4 seconds
+
+With a schema specified but not caching, reddit-2b: 37.4 seconds
+
+With both a schema and caching, reddit-2b: 28.2 seconds
+
+2. Based on the above, it looks like most of the time taken to process the reddit-2b data set is in reading the files, as there is approximately a 12 second difference between the process with and without the schema.
+
+3. We cache once, after we filter out 'Main_Page' and 'Special:' from the title column and everything except 'en' from the language column; so that, it can be reused when grouping and joining later on.  

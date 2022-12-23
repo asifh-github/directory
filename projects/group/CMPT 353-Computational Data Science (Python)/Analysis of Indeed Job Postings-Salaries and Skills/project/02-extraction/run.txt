@@ -1,0 +1,1 @@
+python 02-extraction/extract_to_csv.py 01-scraping/for-extraction 02-extraction/for-cleaning/extracted-data.csv

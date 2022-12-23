@@ -1,0 +1,1 @@
+python 05-ml/ml_analysis.py 03-cleaning/for-ml/analysis-data.csv

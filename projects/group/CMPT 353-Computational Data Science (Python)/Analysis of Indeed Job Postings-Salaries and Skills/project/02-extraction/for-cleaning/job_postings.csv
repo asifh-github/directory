@@ -1,0 +1,396 @@
+job_key,job_title,salary_low,salary_high,is_remote,job_type
+job-8c9cfef64b45c755,GIS & Data Science Specialist,$57.9K,$73.3K,Y,Full-time (i)
+job-3aecd3e9a13bbdb2,Data Scientist,$92.3K,$117K,N,Full-time
+job-0d8c028ae9e54edc,Data Scientist,$80.1K,$101K,N,Full-time
+job-64766bc3a13bfb4a,Data Scientist (Remote),$127K,$161K,Y,Full-time
+job-395bd650cdb99f1c,Applied Scientist 1,0,0,Y,Full-time (i)
+job-af0047ffdcc82f78,Data Scientist - SDV,"$86,460","$141,060",Y,Full-time (i)
+job-9f9fb479fb0e2ead,Data Scientist,0,0,N,Full-time (i)
+job-4b6a8f04d7079151,Data Scientist,$80.2K,$102K,N,Full-time (i)
+job-8e93fbb7fdfdf2f0,Associate Data Scientist,0,0,N,Full-time (i)
+job-2ec9615060a9a5c2,Data Scientist / Quantitative Analyst,0,0,N,Full-time
+job-0044953d92fa1cc7,Data Analyst,"$65,000","$75,000",N,Full-time
+job-9a82bddb264631d6,Data Scientist,0,0,Y,Full-time
+job-79f6fca30cf7c76b,"Analyst, Data Scientist",$81.5K,$103K,N,Full-time (i)
+job-76918834b50321c9,Data Acquisition Analyst,$66.8K,$84.6K,Y,Full-time
+job-9c83337880f04b6d,Data Scientist I,0,0,N,Full-time (i)
+job-81d3dce59d59c680,Data Analyst,$95.4K,$121K,Y,Full-time (i)
+job-4333d4e5f4a5b265,Data Scientist Associate 1,0,0,N,Full-time (i)
+job-36b1de947c1b6ef3,"(Senior) Data Scientist, Clinical & Genomics",0,0,Y,Full-time (i)
+job-57161b6c7ee09743,Jr. Data Scientist,$99.6K,$126K,N,Full-time
+job-d5467cd6eab30e70,Data Analyst - USA,$61.8K,$78.3K,N,Full-time (i)
+job-f2c0dec0eec47be9,Data Science Analyst,$70.8K,$89.7K,N,Full-time
+job-99d232c89d28ff0b,Data Scientist,$88K,$111K,Y,Full-time (i)
+job-94ae0893b9b53f62,"AI/ML - Junior Engineer, Siri Entity Resolution Quality",0,0,N,Full-time (i)
+job-e11d9416d7bf8d30,"Director, Data Governance - Remote",0,0,Y,Full-time (i)
+job-4bfb7e005e74b801,Data Scientist,$96.8K,$123K,N,Full-time
+job-ab629fc2892e6463,Data Scientist II,$89.5K,$113K,N,Full-time (i)
+job-97f33b65384d0965,Load Forecast Data Scientist,$92.7K,$117K,N,Full-time
+job-20d3e043ea23ef18,Data Analyst (Remote),"$60,000","$80,000",Y,Full-time
+job-f9d9e208ca25481b,Junior Data Scientist,$72K,$91.1K,N,Full-time
+job-cbc245b33fc4134f,Data Scientist II - AI and Machine Learning,$107K,$135K,N,Full-time (i)
+job-feba5abf21314515,eCornell Online Course Facilitator - Data Science,$73.2K,$92.7K,N,Part-time
+job-9d021144296f7289,Algorithm Data Scientist,$119K,$150K,N,Full-time (i)
+job-c5ef8dc4f65d0573,Machine Learning and AI Data Scientist - Python / R / NLP,$103K,$130K,N,Full-time
+job-5b256331cda99c7e,Data Scientist,$99.6K,$126K,N,Full-time
+job-75e150a635df361a,Data Scientist,$103K,$131K,Y,Full-time (i)
+job-58a24e7053634e51,Healthcare Data Analyst,"$50,000","$114,000",Y,Full-time
+job-f8e0660a79c87e7a,Data Scientist,$113K,$143K,N,Full-time
+job-2ebc0a1b1b589f8a,Data Scientist,"$80,000","$80,000",N,Full-time
+job-a0a88138c22acb6c,Data Scientist Apprentice,0,0,N,Full-time
+job-e54ca2168fb24770,Energy Market GIS and/or Data Analyst,$60,$80,N,Full-time
+job-9f288beebed53cdb,Statistical Assistant,$84.7K,$107K,N,Full-time (i)
+job-95126f6c210ca8ce,Data Scientist,"$112,000","$136,000",Y,Full-time (i)
+job-0a756a1add50eec1,Sales Operations Analyst,$48.8K,$61.8K,Y,Internship
+job-046638552d4cb0ca,Junior Data Analyst,$68.2K,$86.3K,Y,Full-time (i)
+job-a284f87d4869cb23,Data Science Product Owner (REMOTE),"$140,000","$157,000",Y,Full-time
+job-7a7d2641bac69644,Data Analyst - Fully Remote,$56.4K,$71.4K,Y,Full-time (i)
+job-91a1808eec7ad9a4,Senior Data Scientist - Algorithms,0,0,N,Full-time (i)
+job-3052cab2ca9408ad,"Data Scientist I, Risk Analytics","$115,360","$151,410",Y,Full-time (i)
+job-86900404171e4bc8,Sr. data scientist,$145K,$183K,N,Full-time
+job-14df9bc1246c5c66,Senior Data Scientist,"$125,000","$185,000",N,Full-time
+job-faa71a8a5ad27cb7,Associate Data Scientist (Remote),"$75,000","$105,000",Y,Full-time
+job-bcffda3962391341,Data Scientist,"$74,682","$176,300",N,Full-time
+job-a50132f749ea8c5b,Data Scientist,$80.7K,$102K,N,Full-time (i)
+job-332bb4ffd55ade85,Data Analytics Manager (Remote),"$210,000","$210,000",Y,Full-time (i)
+job-01acda57dd1ee035,Data Scientist,$85.1K,$108K,N,Full-time
+job-22409aeaca7a375b,Data Scientist,"$130,000","$300,000",Y,Full-time (i)
+job-d07a201951b74637,Data Scientist - Forecasting,$111K,$140K,N,Full-time (i)
+job-c8a4a60e7f4dd47b,Data Scientist II,"$95,025","$152,271",Y,Full-time
+job-7afc43aaeee64c22,Junior Data Scientist,$75.3K,$95.4K,N,Full-time
+job-c6b776b92e1ac9e5,Product Analyst,"$119,000","$145,000",Y,Full-time (i)
+job-380e4480b1f38d63,Data Center Specialist,"$30,000","$58,000",N,Full-time
+job-98aba3bf29879d59,(5) Data Analyst / Data Scientist,$81K,$103K,Y,Contract
+job-3fdc097d907cb412,Data Scientist,$76.9K,$97.4K,N,Full-time
+job-4b405b37395c9e3d,Data Analyst,"$53,600","$53,600",Y,Full-time
+job-99d3b8fe92425063,2023 Data Science Fellowship,$91.8K,$116K,N,Full-time
+job-8e23851edeede366,Data Analyst - Digital Marketing (Remote),$48.4K,$61.3K,Y,Full-time
+job-9050eac0e988b0f8,Data Analyst,"$61,480","$63,991",N,Full-time
+job-60eddabd88d0e17a,Data Scientist II,$39.22,$39.22,Y,Full-time
+job-b5b0a95b7e7e6c14,Head of Core Experience Machine Learning & Causal Inference Data Science,0,0,N,Full-time (i)
+job-bb0407e8144237a7,Associate Partner of Data Science,"$200,000","$250,000",N,Full-time
+job-02029f355417cfc6,Artificial Intelligence (AI)/Machine Learning (ML) Graduate,$117K,$149K,N,Full-time
+job-6016a05f12103626,Jr. Data Scientist,$63.4K,$80.3K,N,Full-time
+job-4823d05ce00f9881,Data Analyst,0,0,N,Full-time (i)
+job-d018177f335deb0e,2023 AI & Data Science Full Time Analyst,"$99,750","$135,000",N,Full-time
+job-fe1e29ef697e00fa,Data Scientist co op (Spring/Summer 2023),$29,$29,Y,Full-time
+job-d9ea99a4264c54f0,"Data Scientist, Deep Learning",0,0,N,Full-time (i)
+job-d089730c224823e9,USA - Associate Threat Analytics Data Scientist,$77.9K,$98.7K,Y,Full-time
+job-3d002937d72cdd24,Data Scientist,$127K,$161K,N,Contract
+job-f36c417b5c05e7a9,Data Scientist,$80,$80,Y,Full-time (i)
+job-fcae879011e3d6e0,Ads Data Science Manager,$155K,$197K,N,Full-time (i)
+job-afd32cbbffe5d982,Data Scientist,"$82,000","$113,500",Y,Full-time (i)
+job-531423f49f143100,Crime Analyst / Intelligence Analyst,0,0,N,Full-time (i)
+job-4fbc17578ef9deb3,2023 Entry Level Associate Data Engineer: Advanced Analytics,"$47,600","$65,450",N,Full-time
+job-8c60c32feb60262a,Data Scientist (Remote),"$120,000","$150,000",Y,Full-time
+job-c5300c58c7369739,"Analyst, Data Science",$84.8K,$107K,N,Full-time (i)
+job-9bc23389d74f8d3d,Data Scientist,"$65,000","$76,000",Y,Full-time (i)
+job-4df6e4c7297a4f54,Machine Learning & Modeling Co-op,$37.9K,$48K,N,Full-time
+job-b4f068fb35872c94,Data Scientist,0,0,N,Full-time
+job-4fcc331f991d0b4d,Data Scientist & Statistician,0,0,N,Full-time
+job-c17a91766ff0b80b,"Data Scientist, CG-1560-13/14",0,0,N,Full-time (i)
+job-f371efa7defdc90a,Six Sigma Data Scientist,0,0,N,Full-time
+job-3366271063a2aadc,Data Scientist,$105K,$133K,Y,Full-time
+job-a7bfbca0692b6a16,Data Scientist,$101K,$128K,N,Full-time
+job-f0aca61664eba6cd,"Data Scientist, Junior",$87.5K,$111K,N,Full-time (i)
+job-22f2dfdeaa51ac84,Scientist I - Neurophysiology Data Analysis,0,0,N,Full-time (i)
+job-1e69606a89666508,Data Visualization Specialist,"$72,176","$108,909",Y,Full-time
+job-d1062e34e7b6a2c9,Data Scientist,0,0,N,Full-time
+job-1ae2ff28f49416a5,Data Scientist,$53.4K,$67.6K,N,Full-time (i)
+job-1d187791ab447593,Data Engineer General,$72.1K,$91.2K,N,Contract
+job-0e2a587c048b2220,Data Engineer,$84.5K,$107K,N,Full-time (i)
+job-07696f51c770dba2,Statistical Analyst (Remote),"$55,000","$63,000",Y,Full-time
+job-6b15db61a1db5de6,Data Scientist,0,0,N,Full-time
+job-73ab5485d154854a,Data Scientist,"$150,000","$150,000",N,Full-time
+job-ea15fa77ed7bb5c6,Data Analyst/Scientist,0,0,N,Part-time
+job-818efdec6a34a7c0,AVCOM - Data Scientist,0,0,Y,Full-time
+job-661c38189327f80f,Data Scientist,$82.8K,$105K,N,Full-time
+job-fc9e8f57f0724de7,Recruiting Analyst,"$133,000","$133,000",Y,Full-time (i)
+job-a3c9cbd5c86fbdb3,Data Scientist (Hybrid),0,0,N,Full-time
+job-fefab92260ee8f81,Head of Data Science,0,0,N,Full-time (i)
+job-ab6d3dc078271874,AI Research Scientist,0,0,N,Full-time
+job-ff336d09b7fb3ce8,Data Scientist,0,0,N,Full-time
+job-0cf4f93d3fdf3bfd,"Data Scientist, Growth","$160,000","$255,000",N,Full-time (i)
+job-264fe6de0d004f5d,Data Scientist,$74.6K,$94.5K,N,Full-time (i)
+job-62b7ce96500f5adf,Data Scientist,$101K,$127K,N,Full-time (i)
+job-dbf6e6a46aa7df96,Data Science Analyst,$72.7K,$92.1K,N,Full-time (i)
+job-f205b91f113dfafb,Data Scientist - All Levels,$99.5K,$126K,N,Full-time (i)
+job-9780f9a3bbef1845,Data Analyst 3 - Assortment,0,0,N,Full-time
+job-e1e806fc03ad5e57,Project Manager III - Data Science Innovation,0,0,Y,Full-time (i)
+job-4ab9b226a05c93da,Remote Customer Technical Support Specialist,$18.00,$24.15,Y,Full-time
+job-bd8d09c98be25ee7,Field Data Scientist,$128K,$162K,N,Full-time
+job-1d6776cff1a1e69f,Data Analyst - Remote,0,0,N,Full-time
+job-edb01b018993a2e0,Senior Data Analyst,$79.1K,$100K,Y,Full-time
+job-f9a84682eae1b57f,Data Scientist – Customer Operations,$83.6K,$106K,Y,Full-time
+job-673cc98e25a8d226,Data Officer,$114K,$145K,N,Full-time
+job-5fb709ded0d09899,Data Scientist – Biosensor Analytics,$106K,$134K,Y,Full-time (i)
+job-8a834009c7d01724,Metadata Technologist - Al and Machine Learning,$117K,$149K,Y,Full-time (i)
+job-b05838efde760be5,Data Scientist,$93.3K,$118K,N,Full-time
+job-2a15ae67684a6dde,Data Analyst,$78.3K,$99.2K,Y,Full-time
+job-f79089885227e1ac,Data Scientist,"$7,500","$7,500",N,Full-time
+job-09697effdb4f6086,Data Scientist II - Remote,"$100,000","$125,000",Y,Full-time (i)
+job-30c2bfb3dabbd1df,Data Scientist,"$100,984","$131,277",Y,Full-time (i)
+job-04d8daa933d28271,Sr. Digital Data Analyst – Remote,"$96,330","$144,560",Y,Full-time (i)
+job-5c05bbcec4ccad75,Speech Recognition Data Labeler (Contract),$450,$650,Y,Contract
+job-8a4960da1bea9a14,Data Scientist,"$116,000","$130,500",N,Full-time
+job-c826684cbd7f1084,Data Scientist,$111K,$140K,Y,Full-time
+job-082d8a60f784a790,Data Scientist,"$101,500","$145,000",N,Full-time
+job-8cde8507b40ea085,Data Scientist,$88.2K,$112K,N,Full-time (i)
+job-266351fa2c92d811,Data Scientist,"$99,595","$129,472",Y,Full-time
+job-9ad0f57c5be219d6,Lead Health Scientist (Data Scientist),"$117,692","$152,998",N,Full-time
+job-17465dcacdbf8d67,Jr. Software Engineer,$85.8K,$109K,Y,Full-time (i)
+job-20647dc4afaf4a36,Laboratory Data Scientist,"$4,206","$4,416",N,Full-time
+job-6eec04cf86c2bc88,"Data Scientist, University Graduate (Data Analysis TikTok)- 2023 Start (BS/MS)",$126K,$160K,N,Full-time (i)
+job-d481a53712856322,Jr. Data Scientist,"$86,000","$110,000",Y,Full-time
+job-f3ca2c902f1b5cec,Data Scientist,$99.1K,$125K,N,Full-time
+job-af9d50d94000df12,Data Scientist - Payment Optimization,0,0,N,Full-time (i)
+job-1acfc523a7fe4db3,Data Report Specialist | Remote,0,0,Y,Full-time
+job-a8be4b7dd3077ec0,Data Scientist - Role can be remote,$93.3K,$118K,Y,Full-time
+job-e8ccf157fe743e60,Data Scientist II,$114K,$144K,N,Contract
+job-159bef873366f13f,Data Science Analyst (Remote),"$130,000","$130,000",Y,Full-time (i)
+job-63fb58456f70e5b1,Data Scientist,$101K,$128K,N,Full-time
+job-f316916398cfacf0,Jr. Data Analyst,$56.8K,$71.9K,N,Full-time (i)
+job-c6e1591df0bbebd4,Data Engineer Co-op Winter/Spring 2023,$84.7K,$107K,N,Full-time
+job-d436647f62c5f4d3,Data Scientist,"$75,000","$130,000",N,Full-time
+job-0459faf946006dc9,Junior Data Scientist (Data science and AI),$84.5K,$107K,N,Full-time (i)
+job-b10e5cb51a13c324,Data Scientist (Virtual),"$125,000","$195,000",Y,Full-time (i)
+job-e8a473850d959a23,2023 SETUP Technology Full Time Program – Data Scientist - New York,"$55,000","$100,000",N,Full-time
+job-0d75247d02f8f6cc,Junior Data Scientist - Remote US,$71.2K,$90.1K,Y,Full-time (i)
+job-7643c252a8adfc44,Data Scientist,$96K,$122K,Y,Full-time (i)
+job-fe6e382847752143,Data Scientist,"$130,000","$130,000",Y,Full-time
+job-cbb61a06e49005bc,Data Analyst,0,0,N,Full-time (i)
+job-6a21a438fb945acc,Data Scientist,$117K,$148K,N,Contract
+job-82ee34db05f0eb2d,Data Analyst-Library Science,"$62,800","$106,500",N,Full-time
+job-fc0b543c87373a96,Population Health Visualization Data Analyst,0,0,Y,Full-time
+job-750b62e08897ec82,Data Scientist (Remote),$86.8K,$110K,Y,Full-time
+job-a5cff3ffc1c3af5b,Data Scientist,$93K,$118K,N,Full-time
+job-31f050977b6b88e7,Director - Data Science,$133K,$168K,N,Full-time
+job-227657f7f2463141,"Associate Data Scientist, 2023 Graduate",$80K,$101K,N,Full-time
+job-e81231b39cf512d0,"Data Scientist, Analytics II #0000",0,0,Y,Full-time
+job-f3b76ca213fd1cf9,Data Scientist Consultant,$120K,$152K,N,Full-time (i)
+job-baa9f2f660caba87,Data Science Associate (Remote),$83.8K,$106K,Y,Full-time
+job-1dd50198e8aea5f9,"Scientist, Data Science",0,0,N,Full-time (i)
+job-d34b38d321e035d3,Data Analyst,"$75,000","$75,000",N,Full-time
+job-44148c70c1a0ea67,Data Scientist,"$110,000","$120,000",N,Full-time
+job-16ab7189e6f995cf,Data Engineer,$104K,$131K,Y,Full-time
+job-7ee1adc8e27a53a3,Data Scientist,$89.5K,$113K,N,Full-time (i)
+job-dc37b651dfb87d1e,Data Engineer,"$81,000","$99,000",Y,Full-time
+job-f8e595ba86d40c02,Data Scientist - Climate Risk Modeling,$122K,$154K,Y,Full-time (i)
+job-575667043de017a1,Staff Data Scientist,$132K,$168K,Y,Full-time
+job-5bcdf819a19dde12,2023 University Graduate - Data Scientist,0,0,N,Full-time
+job-deb1ca954a3ed441,Data Visualization Specialist,$58K,$73.5K,Y,Contract
+job-937e42ce4eec4933,Staff Data Scientist (Mailchimp),$95.5K,$121K,N,Full-time (i)
+job-7e163e5a8e1c5cbf,Data Scientist,"$57,600","$85,800",N,Full-time
+job-c5c10211b71b9b8f,Data Scientist Co-Op (Spring 2023),$92.8K,$117K,Y,Full-time (i)
+job-62bd43ec8c8768ae,Data Analyst,$93K,$118K,Y,Contract
+job-fd0991eae6ebba1f,"Associate Data Scientist, Operations Decision Science",$69.8K,$88.4K,N,Full-time (i)
+job-4df9eab753fc82ce,"Data Scientist (Deep Learning, ML, NLP)",$154K,$195K,Y,Full-time (i)
+job-e3f1da7cc0f1079c,"Data Scientist, F&S",$136K,$173K,Y,Full-time
+job-67037e14b564d5f5,Data Scientist,$105K,$133K,N,Full-time
+job-3af02d93417e951c,Junior Data Scientist,"$55,000","$60,000",Y,Internship
+job-1cb5ddaff3d99e8b,"Data Scientist, Viral Genomics",0,0,N,Full-time
+job-e7ba1b1f53d93324,Economic Data Scientist,"$90,000","$150,000",N,Full-time
+job-78a4022911f63755,Associate Data Scientist,$70.4K,$89.1K,N,Full-time
+job-17bc43b431871b45,Data Analyst,$47.4K,$60K,N,Full-time
+job-a05a6d5b47ba410b,Data Scientist,$111K,$141K,Y,Full-time (i)
+job-e264c4aba9211354,Data Analyst,$66.8K,$84.6K,N,Full-time (i)
+job-2331eec5e4e44055,Data Scientist (Remote),$106K,$134K,Y,Full-time
+job-1adf265cf6f45232,Data Scientist,$130K,$164K,Y,Full-time (i)
+job-d13253bb2626a9c8,Data Engineer,"$54,000","$140,000",N,Full-time
+job-2a1e68cf23e75808,Data Scientist,0,0,N,Full-time (i)
+job-30f80792440292e7,"Senior Associate, Data Science (R-13261)",$73K,$92.5K,Y,Full-time
+job-51a9496d787b39c0,Biomedical Data Scientist - Health Technologies,0,0,N,Full-time
+job-01902d8707f063a4,Data Scientist I,$74.3K,$94.1K,Y,Full-time
+job-4d9c7104fe8f3182,Data Scientist,"$130,000","$159,000",Y,Full-time (i)
+job-8f6a733c2512f3b8,Data Scientist,$84.5K,$107K,N,Full-time
+job-54db6aa73c78afa1,Data Scientist,$83.6K,$106K,N,Full-time
+job-62753bd28b0589dc,Data Engineer (Remote worldwide),"$155,500","$155,500",Y,Full-time
+job-233493435dd70c94,Data Scientist (1386547),$116K,$147K,N,Full-time (i)
+job-e766c04c226a1dbf,"Data Scientist, CV/NLP",$94.9K,$120K,Y,Full-time
+job-92a06e8f05ff1719,Data Scientist,"$150,000","$160,000",N,Full-time
+job-63bec62e3fe37cef,Data Scientist - Marketing,0,0,Y,Full-time
+job-5c4cc0a38cc4fd1c,Data Scientist 3,$92.2K,$117K,N,Full-time
+job-6c280d306581b014,Data Review Associate Scientist - Biochemistry,0,0,N,Full-time
+job-4c0d9395ce3542ca,"Staff Data Scientist, Guest & Host","$180,000","$245,000",Y,Full-time (i)
+job-a88fddbc4eff63ec,Data Scientist - SOCOM,$98.8K,$125K,N,Full-time
+job-1bd75dfa708037d4,Data Scientists,$99.1K,$125K,N,Full-time (i)
+job-38ae3e9b8611137d,Data Scientist,"$80,000","$80,000",Y,Full-time
+job-5062462d0a68c093,Data Scientist,0,0,N,Full-time
+job-2b7f43aae2c37421,"Data Scientist, Risk",$117K,$148K,N,Full-time (i)
+job-d51427de90fbee90,Senior Data Scientist,$136K,$172K,Y,Full-time (i)
+job-8c9793903a49dd78,Data Scientist,"$70,000","$80,000",N,Full-time
+job-629cb3acc17b00de,Data Scientist (Contract),$96.2K,$122K,N,Contract
+job-7d34cb7b5c324187,Data Scientist,$100K,$127K,Y,Full-time (i)
+job-f1d0a408b3ca594c,Data Scientist,$102K,$130K,N,Full-time
+job-691fbf2482f56d85,Machine Learning Engineer,$97.4K,$123K,N,Full-time (i)
+job-42a78e91d010b05d,Data Science Graduate,$104K,$131K,N,Full-time
+job-93bf766fe8c1b26e,Staff Data Scientist,"$142,800","$265,200",N,Full-time
+job-f7b2e9206e2fd91c,Data Scientist,$128K,$162K,Y,Full-time (i)
+job-ac7ecf778e717323,Technical Prof-Data Science (Associate - Senior),0,0,N,Full-time
+job-56e03cc91fff1752,Product Data Scientist,0,0,N,Full-time (i)
+job-176a47d38fffb257,Data Scientist,0,0,N,Full-time
+job-a64a91d7ea3e62e0,Trading/Quantitative Modeling | Analyst | New York,0,0,N,Full-time
+job-378637ce972ec692,Data Scientist,"$120,000","$180,000",Y,Full-time
+job-aaa2eecaa08fa2cb,Data Scientist,"$150,000","$180,000",N,Full-time
+job-08b2dfdc34ef2351,Data Science Analyst,0,0,N,Full-time
+job-a4d05dd1360ad3a0,Data and Research Analyst,"$70,000","$70,000",N,Full-time
+job-319710555117dbdc,Data Analyst,$19,$26,Y,Internship
+job-7a07720220241ddc,Data Scientist Co-Op (Spring 2023),$103K,$131K,Y,Full-time (i)
+job-ee4db6c86845c153,Data Scientist,"$80,000","$100,000",Y,Full-time
+job-e9d9c0cd33be8957,Data Scientist,$112K,$142K,N,Full-time
+job-a1693f58770af7c5,"Principal Data Scientist, Ecosystem",$170K,$215K,N,Full-time
+job-33a5380c2fb99063,Data Scientist | Remote-US,$91.5K,$116K,Y,Full-time
+job-6d5726c075d2dd9d,Data Scientist,$88K,$111K,Y,Full-time
+job-7c2a03352de79a53,Clinical Data Analyst,0,0,Y,Full-time (i)
+job-97d822e65cb2cb7b,"Staff Data Scientist, ML Ops",$135K,$171K,Y,Internship
+job-6bfad109b485e172,"Manager, Data Science",$86.2K,$109K,N,Full-time (i)
+job-711d5dc27c5900d3,Data Scientist,$113K,$143K,N,Full-time
+job-5fff07e6e2b3e0b1,"Data Strategy, Data Scientist – Equity Research","$100,000","$110,000",N,Full-time
+job-3cec83dc45f5811a,Data Scientist II,$81.8K,$104K,N,Full-time
+job-20aaed49d55b16de,Data Scientist I,$75K,$94.9K,N,Full-time
+job-85014d5fc8422ca9,Data Scientist,"$70,000","$110,000",N,Full-time
+job-4cedb157a4815968,Data Engineer,$100K,$127K,Y,Full-time
+job-fa1487d5e35b1d3d,Azure ML Data scientist,$114K,$144K,Y,Contract
+job-5eaa1f0b29171fa8,Data Science Co-Op,$94.2K,$119K,N,Full-time (i)
+job-094f305c57858a88,Data Scientist,$122K,$154K,N,Full-time
+job-7e623bea8d4ad31f,Data Scientist II,0,0,Y,Full-time
+job-375f10c6aa43360e,Senior Data Scientist,$121K,$153K,Y,Full-time
+job-75328ee278c7b732,Planner Climate and Data Science,0,0,N,Full-time (i)
+job-530460f870702843,Data Analyst,$80.9K,$102K,Y,Full-time
+job-6a96e1b1c4aea9bb,Data Scientist Advanced Development Program,$84.2K,$107K,N,Full-time (i)
+job-a11a9ecd3ead3b85,Decision Science Data Analyst - Media (hybrid),$80.8K,$102K,N,Full-time (i)
+job-ce2084ae0ccf4bb7,Junior Data Scientist,$69.3K,$87.8K,N,Full-time
+job-3239a1fa7c5a474b,Junior Data Scientist,$81.2K,$103K,N,Contract
+job-7bfaa1e9364874f6,Data Analyst,$85.1K,$108K,N,Full-time
+job-acb88de900421828,Water Resources Data Scientist - Snow Hydrology,0,0,Y,Full-time
+job-9c58a08b1394a86f,Data Scientist,$89.6K,$113K,N,Full-time
+job-01bc99b11ef5cfb9,Data Scientist I,$98.2K,$124K,N,Full-time
+job-b860aab171ecb208,Data Scientist,$85.3K,$108K,N,Full-time
+job-1f0af9e4705a18eb,2023 University Graduate - Data Science 1,$84.8K,$107K,N,Full-time
+job-9bd2e03ab5f5ff5b,Sustainability Data Analyst,0,0,N,Full-time (i)
+job-6c2760da1306cdb2,Data Scientist,$119K,$151K,Y,Full-time
+job-beb33b8adc578f74,Data Scientist - Statistical Scientist,$109K,$138K,N,Full-time
+job-8777ba03d007b1b3,Machine Learning Engineer,$112K,$142K,N,Full-time
+job-ebd17b92334863fc,Chief Technology Officer,"$300,000","$400,000",N,Full-time
+job-d68c01ba67d0bbcb,Data Scientist,0,0,N,Full-time (i)
+job-bab2d2e950d5ad3c,Jr. Data Scientist with TS/SCI Poly,"$74,750","$155,250",N,Full-time
+job-bc4fc772e60ee82d,Forensic Data Science Associate - Summer/Fall 2023 (National),$62.2K,$78.8K,N,Full-time (i)
+job-54bf2be3f86d76fd,Data Scientist,$120K,$151K,N,Full-time
+job-4e36abb4c8802708,"Data Scientist, Baseball Research & Development",$105K,$133K,Y,Full-time (i)
+job-98d13b8ba69ceadd,Forensic Scientist Data Review I (NDOT),0,0,N,Full-time
+job-6d029acc7384b9e2,Data Evaluator for Hot,$99K,$125K,Y,Full-time (i)
+job-c9fd841a8d2c81fa,Data Scientist,0,0,N,Full-time
+job-73fb2d142e07d648,Data Scientist,$79K,$100K,N,Full-time
+job-4484d7039ddfc55e,Data Scientist,$90.6K,$115K,N,Full-time (i)
+job-50387d446166e1d0,ArborCount Data Technician,$57.5K,$72.7K,Y,Full-time (i)
+job-5d7fcd1854c2e58f,Data Engineer,"$95,000","$105,000",Y,Full-time
+job-50bda7b9d0d3a40b,Data Scientist,$101K,$127K,N,Full-time (i)
+job-00d80147a1b5d603,Data Scientist,$106K,$134K,N,Full-time (i)
+job-43087b7ed6a1a3b8,Data Scientist,$109K,$138K,Y,Full-time (i)
+job-f1ba11427b4dece6,"Senior Data Analyst, Supply Chain (Remote)",0,0,Y,Full-time (i)
+job-18bd709e00fbc35d,Data Scientist,$127K,$160K,N,Full-time
+job-b8de7493c963d2d1,Data Scientist,"$86,900","$127,500",N,Full-time
+job-9fc8a6e37ca34d22,Associate Data Analyst,$53.8K,$68.1K,N,Part-time
+job-7dc55e392f6902ba,Senior Data Scientist,0,0,N,Full-time (i)
+job-137db19521390290,Data Science Trainee,0,0,N,Internship
+job-75072514becfb9ca,Clinical Data Scientist - Contract,$107K,$135K,Y,Contract
+job-2b4f6660895f9574,Data Analyst,"$80,000","$110,000",N,Full-time
+job-1b2167ae36c95a44,Data Mining Scientist,0,0,Y,Full-time (i)
+job-cdaea6c0b7a862fe,Data Scientist,"$59,005","$80,542",N,Full-time
+job-2125271a37f60153,Research Data Scientist,$134K,$170K,Y,Full-time (i)
+job-2f7577d331547bec,Associate Machine Learning Engineer (Remote),$73.3K,$92.9K,Y,Full-time
+job-bb28e752879d2931,Data Science Associate,"$56,600","$75,000",N,Full-time
+job-63696188778dab88,Data Scientists,$147K,$186K,Y,Full-time (i)
+job-ee8702a31f28862c,Data Analytics Engineer (Remote),$90.9K,$115K,Y,Full-time
+job-38c285cf84dd086e,Senior Data Scientist (Remote),"$96,000","$220,000",Y,Full-time (i)
+job-d2558814f5b5cd21,Actuarial Data Scientist,"$63,100","$137,900",Y,Full-time (i)
+job-18a754e619e0a423,Data Scientist,$98.6K,$125K,N,Full-time
+job-c6beb8ea1be3850c,Data Scientist,$87.9K,$111K,Y,Full-time
+job-ad5eff59731c5c4b,Climate Data Scientist,$121K,$154K,Y,Full-time (i)
+job-1b6c11f7e66985e0,Junior Data Scientist (US - East Coast),$63.4K,$80.3K,N,Full-time
+job-8d401996888d5d4f,Lead manager data science – People Analytics,0,0,N,Full-time
+job-e58da802b5f4510c,Data Associate – Data Visualization Specialist,$53.8K,$68.1K,Y,Full-time
+job-9aad7c98c1e7d985,Data Scientist,0,0,N,Full-time (i)
+job-bfb1470297443699,Data Scientist,"$90,000","$130,000",Y,Full-time
+job-23eaf853901b8974,Data Science & Analytics Development Program 2023a,$80.2K,$102K,N,Full-time (i)
+job-8f1c66141dd55313,Data Scientist,0,0,N,Full-time (i)
+job-d64ff40da25d604a,"Data Scientist- TikTok Ads, Ads Targeting, Auction and Delivery",$132K,$167K,N,Full-time (i)
+job-089d31b5fc826ce2,Data Scientist and Visualization Developer,"$110,000","$140,000",N,Full-time
+job-fda3db668b886829,Data Scientist (Remote),$120K,$151K,Y,Full-time
+job-41907f74de9bc1ed,Data Scientist,"$75,000","$85,000",N,Full-time
+job-d641fca9c1f31499,Lead Engineer - Data Science,"$96,000","$168,000",Y,Full-time (i)
+job-1c971fa15a15e993,Data Engineer,$90.7K,$115K,N,Contract
+job-a3c7f5701045c70c,Data Scientist,$137K,$173K,Y,Full-time (i)
+job-d318e297ed79ca51,Data & Applied Scientist,0,0,N,Full-time
+job-61f4d2dc654ef64e,Simulation Data Scientist,$106K,$134K,N,Full-time
+job-7ebecd9260532e3e,Jr. Data Engineer I,$71.1K,$90.1K,Y,Full-time (i)
+job-b97ac176c799ad23,Machine Learning Research Assistant,"$7,000","$7,000",Y,Full-time
+job-66b4fc49942d9045,Data Scientist,$90.3K,$114K,N,Full-time
+job-9ace76b37f6ccf19,Research Data Scientist,$76.4K,$96.8K,N,Full-time
+job-0072004f2d3180a4,Data Scientist (Remote),"$96,000","$220,000",Y,Full-time (i)
+job-5f1103ebd513c781,Data Scientist - Evernorth,"$95,800","$159,600",N,Full-time
+job-d42a40a11d675cc9,Data Scientist [NYC],$103K,$131K,N,Full-time (i)
+job-95c90b9c7a8c7b77,Senior AI Data Scientist,"$133,800","$220,700",N,Full-time
+job-15b6732e63ee8188,Head of Data Science,"$190,000","$260,000",Y,Full-time (i)
+job-a98c1cfbaa8f478e,Data Science Teacher,"$120,000","$500,000",N,Full-time
+job-f0d02935a4686b0f,Staff Data Scientist,"$176,634","$176,634",Y,Full-time
+job-4ac87d68765ad235,data scientist sr- People Analytics (Remote),"$109,000","$205,600",Y,Full-time
+job-8a0aab5c1d1132e7,Data Scientist,$114K,$144K,Y,Contract
+job-260b91c2b4825639,Data Scientist,$84.8K,$107K,N,Full-time
+job-d643695fb61eb16f,Data Scientist - Entry Level,$75.1K,$95.1K,N,Full-time
+job-53d77b995977b2d2,Data Scientist II,$86.5K,$110K,N,Full-time
+job-8c1e1ac097dc7048,Data Scientist,$103K,$131K,Y,Full-time
+job-bb82cc4bd24064dd,Data Engineer,$109K,$138K,Y,Full-time (i)
+job-6c438a620e58f2a5,Data Analyst,$73.1K,$92.6K,N,Full-time
+job-7563544e5dc35887,Data Scientist,"$100,000","$140,000",Y,Full-time (i)
+job-629e89007cef06c0,Data Scientist,$90.4K,$115K,N,Full-time (i)
+job-0f5c5e6c57cc4200,Data Science Analyst I or II,$63.8K,$80.7K,N,Full-time
+job-d5c16ce64f854ef0,Data Scientist,$89.6K,$113K,N,Full-time
+job-340580918cebc59a,Principal Data Scientist,$138K,$174K,N,Full-time
+job-3595d063e3084b41,Network Data Scientist,"$130,000","$180,000",Y,Full-time (i)
+job-709cadec36abd6e0,Backend Staff Data Engineer,"$160,000","$195,000",Y,Full-time
+job-8ab41096cb3c3264,Data Scientist,$75,$75,Y,Full-time (i)
+job-bcc6de54e0095d2e,"Data Scientist, Special Initiatives",$135K,$171K,Y,Full-time (i)
+job-92ce6b6f3da1495f,Data Science Bootcamp Teaching Assistant (Virtual/Remote),$38.2K,$48.3K,Y,Part-time
+job-3e417767f39f88ea,Human Resources Data Analyst,$71.1K,$90K,Y,Full-time (i)
+job-96d73266b1677e7f,Data Scientist,$97.7K,$124K,Y,Full-time (i)
+job-0f39f4097013f08c,"Data Scientist IV, Utility Reliability - REMOTE","$119,900","$159,500",N,Full-time
+job-b0a92f7d684f0cdc,Data Scientist,$124K,$157K,Y,Contract
+job-5741a4dbbe15cade,Sr. Data Analyst,$82.4K,$104K,N,Full-time
+job-48f7a92af23648f4,Data Scientist I,0,0,N,Full-time (i)
+job-defcdef6accd6f19,Data Scientist (Level I - II),$72.2K,$91.5K,N,Full-time (i)
+job-1292d743fbc2f949,Data Engineer/Data Scientist,"$100,000","$180,000",Y,Full-time
+job-08695ea0b6747b80,"Data Analyst, Global Public Policy",0,0,N,Full-time (i)
+job-6479652b6d6e0b48,Data Analyst,$79.6K,$101K,N,Full-time (i)
+job-06e65096698ac9c5,(Remote) Data Scientist - Rockefeller Neuroscience Institute,$59.9K,$75.8K,Y,Full-time
+job-20df28fa224fe0b6,Senior Data Analyst,"$115,000","$250,000",Y,Full-time (i)
+job-2ef2433a09309f54,Data Scientist,$93.4K,$118K,N,Full-time
+job-699cc993187fff79,Data Science / Data Analyst - Early Career,0,0,N,Full-time (i)
+job-dd35b07bed340dcb,Quantitative Researcher – Graduate,0,0,N,Full-time (i)
+job-6d8750c50840b014,Data Scientist,$113K,$143K,Y,Full-time
+job-4056f93fad9049d5,Data Scientist,$135K,$170K,Y,Full-time
+job-3f48c7f7af2fc151,Product Data Scientist,$74.2K,$94K,Y,Full-time
+job-c1b2cd03dc88dc38,Statistical Analyst,"$82,800","$110,200",Y,Full-time (i)
+job-b7db8489068acbaf,Data Scientist,"$150,000","$230,000",N,Full-time
+job-19a9f2a4deb9847c,Data Scientist,$108K,$136K,Y,Full-time (i)
+job-f430a34876014a45,Global Quantitative Research Summer Associate Program - 2023,0,0,N,Internship
+job-3ac8374fbb32a5bb,Data Scientist,$122K,$154K,Y,Full-time (i)
+job-7adb52e24ce39d4e,"Data Scientist, Data Science and Solution (Retail Analytics)",$107K,$135K,N,Full-time
+job-47a1ecd2c7c33537,Data Analyst (Remote),$69.6K,$88.1K,Y,Full-time
+job-e66af60e1ee24165,Digital Loss Prevention Data Analyst - North America Nike Direct Digital Commerce (Remote Option*),"$86,000","$128,500",Y,Full-time
+job-d751b2f264bf621f,Speech Recognition Data Labeler (Contract),$450,$650,Y,Contract
+job-b5a66fd1accd37ad,Data Scientist,$85.2K,$108K,N,Full-time
+job-7a490dc273be739c,Junior Data Scientist,$77.5K,$98.1K,N,Full-time
+job-cb480d80108fdc6f,Data Analyst,$93.4K,$118K,N,Full-time
+job-d23bf8bf628e59a6,Data Analytics Data Scientist,$107K,$136K,N,Full-time (i)
+job-99fda8644c48cb0f,Data Scientist (FT),"$85,000","$100,000",N,Full-time
+job-0ec984e59d3ce730,Data Scientist,$104K,$132K,Y,Full-time
+job-c3a7d3c94ef3a0e1,Sr Data Scientist - Innovation,"$80,000","$195,000",N,Full-time
+job-266dae378e31712d,Data Analyst,$63.3K,$80.2K,Y,Full-time
+job-678f1f56ecb9b876,Data Scientist,0,0,N,Full-time (i)
+job-1d6ea52576020fee,Data Scientist,$75.6K,$95.7K,Y,Full-time (i)
+job-280e08ef04cb7740,Data Scientist,$90.9K,$115K,Y,Full-time
+job-2c189f217200e1c2,"Junior Researcher, Data Science",$69.2K,$87.6K,N,Full-time (i)
+job-ce21f238f24eb496,Cybersecurity and Data Science,$55K,$69.7K,N,Full-time (i)
+job-754556627e42fc84,Data Scientist - Remote,$104K,$132K,Y,Full-time
+job-50fc6373c08e9d19,Data Labeler,$82.7K,$105K,N,Full-time (i)

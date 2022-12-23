@@ -1,0 +1,12 @@
+python
+sql
+r
+tableau
+spark
+scala
+c
+pandas
+dask
+hadoop
+amazon web services
+

@@ -1,0 +1,6 @@
+make --dry-run --always-make --keep-going --print-directory
+make: Entering directory `/Users/asifh/Desktop/assignment-4-asifh-sfu'
+make: Leaving directory `/Users/asifh/Desktop/assignment-4-asifh-sfu'
+ 
+make: *** No rule to make target `trans.c', needed by `trans.o'.
+

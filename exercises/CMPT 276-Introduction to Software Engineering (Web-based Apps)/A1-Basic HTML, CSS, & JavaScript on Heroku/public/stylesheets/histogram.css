@@ -1,0 +1,81 @@
+h1{
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: normal;
+    margin-left: 35px;
+    
+    margin-bottom: 0px;
+}
+h3{
+    color: red;
+    margin-bottom: 0px;
+    padding-left: 5px;
+}
+
+div{
+    background-color:aliceblue;
+    margin-top: 20px;
+    margin-left: 15px;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.histogram {
+    position: absolute;
+    height: 18px;
+}
+
+#bounds{
+    float: left;
+    width: 500px;
+    height: 580px;
+}
+
+#bounds table{
+    border-spacing: 12pt;
+}
+
+#bounds input{
+    padding: 2pt;
+    width: 150px;
+    text-align: center;
+    margin-left: 120px;
+}
+
+#histogram{
+    float: left;
+    width: 580px;
+    height: 400px;
+}
+#histogram table{
+    border-spacing: 8pt;
+}
+
+#histogram td{
+    padding-right: 40px;
+}
+
+#grades{
+    float: left;
+    width: 580px;
+    height: 140px;
+}
+
+#grades label{
+    margin-left: 10px;
+}
+
+#grades input {
+    padding: 3pt;
+    width: 180px;
+    margin-top: 15px;
+    margin-left: 60px;
+}
+
+#invalid_input {
+    margin-left: 145px;
+    color: red;
+}
+
+#valid_input {
+    margin-left: 145px;
+}

@@ -1,0 +1,69 @@
+---
+title: "STAT 240 - Assignment 6"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Problem 2
+```{r, echo=TRUE}
+# vector of website links
+# stat 330 & 350 course outlines are not available for the current term
+courses = c('https://www.sfu.ca/outlines.html?2017/spring/evsc/100/d100',
+            'https://www.sfu.ca/outlines.html?2018/fall/stat/452/d100',
+            'https://www.sfu.ca/outlines.html?2022/spring/stat/100/d100',
+            'https://www.sfu.ca/outlines.html?2022/spring/stat/201/d900',
+            'https://www.sfu.ca/outlines.html?2022/spring/stat/203/d100',
+            'https://www.sfu.ca/outlines.html?2022/spring/stat/270/d100',
+            'https://www.sfu.ca/outlines.html?2021/fall/stat/330/d100',
+            'https://www.sfu.ca/outlines.html?2021/fall/stat/350/d100')
+# scraper 
+# vectors of cols 
+course_number = vector(mode="character", length=length(courses))
+course_title = vector(mode="character", length=length(courses))
+course_instructor = vector(mode="character", length=length(courses))
+course_time_location = vector(mode="character", length=length(courses))
+class_number = vector(mode="character", length=length(courses))
+class_delivery = vector(mode="character", length=length(courses))
+# for-loop through vector of links 
+for(i in 1:length(courses)) {
+  course_page = readLines(courses[i])
+  # extract course 
+  cnum =  grep('<h1 id="name"',course_page,value=TRUE)
+  cnum = gsub("<[^<>]+>", " ", cnum)
+  cnum = gsub("\\s{2,}", " ", cnum)
+  course_number[i] = cnum
+  # extract course title
+  ctitle = grep('<h2 id="title"',course_page)
+  ctitle = course_page[ctitle + 1]
+  ctitle = gsub("\\s{2,}", " ", ctitle)
+  course_title[i] = ctitle
+  # extract course instructor
+  cins = grep('<h4>Instructor',course_page)
+  cins = course_page[cins + 1]
+  cins = gsub("<[^<>]+>", " ", cins)
+  cins = gsub("\\s{2,}", " ", cins)
+  course_instructor[i] = cins
+  # extract course time & location
+  ctime_l = grep('<h4>Course Times',course_page)
+  ctime_l = course_page[ctime_l + 1]
+  ctime_l = gsub("<[^<>]+>", " ", ctime_l)
+  ctime_l = gsub("\\s{2,}", " ", ctime_l)
+  ctime_l = gsub("&ndash;", "-", ctime_l)
+  course_time_location[i] = ctime_l
+  # extract class number and delivery
+  heading3 = grep("<h3",course_page,value=TRUE)
+  heading3 = gsub("<[^<>]+>", " ", heading3)
+  heading3 = gsub("\\s{2,}", " ", heading3)
+  class_number[i] = heading3[1]
+  class_delivery[i] = heading3[2]
+}
+# data-frame from vectors
+result_df = data.frame(courseNumber=course_number, courseTitle=course_title, 
+                       courseInstructor=course_instructor, 
+                       courseTimeLocation=course_time_location,
+                       classNumber=class_number, classDelivery=class_delivery)
+result_df
+```

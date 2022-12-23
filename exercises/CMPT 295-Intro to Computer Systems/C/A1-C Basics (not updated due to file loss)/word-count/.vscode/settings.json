@@ -1,9 +1,0 @@
-{
-  "files.associations": {
-    "vector-char.h": "c",
-    "str_cmp.h": "c"
-  },
-  "files.watcherExclude": {
-    "**/target": true
-  }
-}

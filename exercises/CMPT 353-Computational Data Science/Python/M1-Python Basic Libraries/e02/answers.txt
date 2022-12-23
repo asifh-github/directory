@@ -1,4 +1,0 @@
-1. The result is the predicted values of rating (y) which is calculated by using the formula y = mx + c, for each value of x. Where x is the date of a rating; m is the slope and c is the y-intercept values of the linear regression model, which uses rating and date values from the original dataset. m and c are contants. Perdicted values (y) are calculated in the same unit/type as the original rating values, which is float.
-
-
-2. In this case, our linear regression model defines the linear relationship of two variables rating (y) and date (x). And with respect to time, the low values of rating disappear, therefore, making the slope of the relationship increasing/positive. Because we are defining a relationship between rating and date, we must make sure that the created_at values and the timestamp values are paired correctly to ensure correctness of the relationship. The output graph is valid.

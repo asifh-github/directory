@@ -1,6 +1,0 @@
-make --dry-run --always-make --keep-going --print-directory
-make: Entering directory `/Users/asifh/Desktop/assignment-1-asifh-sfu'
-make: Leaving directory `/Users/asifh/Desktop/assignment-1-asifh-sfu'
- 
-make: *** No targets specified and no makefile found.  Stop.
-

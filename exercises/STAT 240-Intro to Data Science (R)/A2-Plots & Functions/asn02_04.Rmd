@@ -1,0 +1,27 @@
+---
+title: "STAT 240 - Assignment 2"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Problem 4a
+
+```{r, echo=FALSE}
+poke = read.csv("pokemon_2019.csv")
+poke_dat <- poke[c("Name", "Height_m", "isLegendary")]
+poke_dat = poke_dat[poke_dat[, "Height_m"]>2 & poke_dat[, "isLegendary"]=="True", "Name"]
+cat(poke_dat, sep='\n')
+```
+
+## Problem 4b
+```{r, echo=FALSE}
+poke = read.csv("pokemon_2019.csv")
+poke_dat2 = poke[c("Attack", "Defense", "Body_Style")]
+poke_dat2 = poke_dat2[poke_dat2[, "Body_Style"]=="head_arms" | poke_dat2[, "Body_Style"]=="serpentine_body", ]
+plot(poke_dat2[["Attack"]], poke_dat2[, "Defense"], 
+     main="Attack vs. Defense", xlab="attack", ylab="defense",
+     type='p', col="pink", lwd=3)
+```

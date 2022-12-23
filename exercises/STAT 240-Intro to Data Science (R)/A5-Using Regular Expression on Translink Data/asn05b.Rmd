@@ -1,0 +1,152 @@
+---
+title: "STAT 240- Assignment 5"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+```{r, include=FALSE}
+library(lubridate)
+library(stringr)
+# loads given data from folder
+load("~/Documents/stat240/asn5/translink.RData")
+```
+
+```{r, echo=FALSE}
+# loading given translink.RData from folder 
+translink = function(year, month, day, hour) {
+  # creates list with two vectors- start & stop
+  result = list("start"=vector(mode='character'), "stop"=vector(mode='character'))
+  # creates data-time var with function paras (assuming all paras are int)
+  date = ymd(paste(year, month, day, sep='-'))
+  # hour [0, 24)
+  if(hour<10) {
+    date_time = paste(date, hour, sep=' 0')  
+  }
+  else {
+    date_time = paste(date, hour, sep=' ')
+  }
+  # loops through entire data
+  print(paste0("Bus Disruptions Alert duing ", date_time, "H:"))
+  for(i in 1:length(data)) {
+    # picks element with/matching date-time 
+    if(date_time == substr(data[[i]]$created, 1, 13)) {
+      # picks element with/containing bus route disruptions 
+      if(str_detect(data[[i]]$text, "#RiderAlert")) {
+        # checks if disruptions have STOPED
+        if(str_detect(data[[i]]$text, "CLEAR|(C|c)lear|ended|over|returned")) {
+          # gets rid of date/time/street no. from string element
+          vec_str = str_extract(data[[i]]$text, ".+detour")
+          # extracts all bus no. t/ stopped having disruptions
+          vec_temp = str_extract_all(vec_str, "(?<!\\:)[A-Z]?\\d+\\b(?!\\:)")
+          # loops to insert disruptions into vector 'stop'
+          for(j in 1:length(vec_temp[[1]])) {
+            result$stop[length(result$stop)+1] = vec_temp[[1]][j]
+          }
+        }
+        # checks if disruption has STARTED
+        else if(str_detect(data[[i]]$text, "detour|delays")) {
+          # gets rid of date/time/street no. from string element
+          vec_str = str_extract(data[[i]]$text, ".+detour")
+          # extracts all bus no. t/ started having disruptions
+          vec_temp = str_extract_all(vec_str, "(?<!\\:)[A-Z]?\\d+\\b(?!\\:)")
+          # loops to insert disruptions into vector 'start'
+          for(j in 1:length(vec_temp[[1]])) {
+            result$start[length(result$start)+1] = vec_temp[[1]][j]
+          }
+        }
+        print(data[[i]])
+      }
+    }
+  }
+  return(result)
+}
+```
+
+
+## b.
+My translink function is built to extract all Bus Routes of buses that "started" & "stopped" having disruptions within the provided day-hour in the function parameters. The function uses the translink data provided with the assignment instructions. The function does not excludes duplicates.
+
+
+# Case 1:
+Simple case provided with the assignment instructions
+
++ Contains 3 total instances with one bus route each
+
+Translink function returns the expected result inside vector start and stop. 
+
+```{r, echo=TRUE}
+translink(2020, 1, 26, 3)
+```
+
+
+# Case 2:
+Corner case 1; 
+
++ Contains 12 total instances of bus disruptions data within the given day-hour
++ Among them, 
+  + 11 instances have one bus route each and 
+  + 1 instance has 3 distinct bus routes
++ Therefore, 14 total bus routes
+
+The function returns the expected result:
+
++ Extracts all 3 bus routes from a single instance - "335", "345", "375" 
++ Extracts a bus route that starts with an alphabet- "N24"
++ Extracts other 10 bus routes (contains duplicates due to 10 distinct instances)
+
+```{r, echo=TRUE}
+translink(2020, 1, 28, 1)
+```
+
+
+# Case 3:
+Corner case 2;
+
++ Contains 7 total instances of bus disruptions data within the given day-hour
++ Among them, 
+  + 4 instances have 2 bus routes each,
+  + 2 instances have 1 bus route each,
+  + and one is empty (no bus route) 
++ 1 instance with 2 bus routes- "228", "239",  repeats 3 times 
++ The other 3 instances are structurally different than other instances in the data. Here, the time is mentioned before the bus route itself and with 1 having no bus route at all
+
+The function returns the expected result:
+
++ Bus routes "228" and "239" appears 3 times beacuse of 3 distinct instances 
++ Extracts "407" and "408" from instances that are structurally unique than other instances in
+  the data; Excludes date and time from instances
++ Returns NA when there is missing bus route in the (bus disruptions alert) instances
+
+```{r, echo=TRUE}
+translink(2020, 1, 28, 4)
+```
+
+
+# Case 4: 
+Corner case 3;
+
++ Contains 8 total instances of bus disruptions data within the given day-hour
++ The instances contain spacing errors and bus route Names that are numeric,
+  + Some instances have no space between bus route and preceding\\succeeding character, such as
+  "RiderAlert14" and "7Dunbar"
+    + Error: Does not extracts bus route that does not ends with border
+    character,so bus route- "7" won't be extracted if "7Dunbar"
+  + Some instances have numeric bus route Names, such as "(240) 15th Street", "(16) 29 Ave",
+  and "(240) 15 St"
+    + Error: Extracts 15 from from bus route Name (not bus route number) "15 St"
+    + Error: Extracts 29 from from bus route Name (not bus route number) "29 Ave"
+
+The function returns the expected result:
+
++ Extracts bus routes "14" and "4" from instances where there is no space between bus route and preceding character 
++ Does not extracts bus route Name "15" from instance where bus route Name is "15St"
++ Error: Does not extracts bus route "7" from instance where bus route is "7Dunbar" because
+  does not ends with border character
++ Errors: Extracts bus route Name "15" and "29" from instances where nus route Name is "15 St"
+  and "29 AVE" because the numeric names ends in border character
+
+```{r, echo=TRUE}
+translink(2020, 2, 12, 19)
+```

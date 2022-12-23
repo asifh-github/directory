@@ -1,0 +1,20 @@
+---
+title: "STAT 240 - Assignment 2"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Problem 3
+
+```{r, echo=TRUE}
+x = 1:10
+plot(x, x^2, main="Growth rate comparison of x^2 & 2^x",
+     xlab="x", ylab="rate",
+     type='l', col=1, lwd=3)
+lines(x, 2^x, lty=2, col=2, lwd=3)
+legend(x="topleft", col=1:2, lty=c(1, 2),
+       c("x^2", "2^x"), bty='n')
+```

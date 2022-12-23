@@ -1,0 +1,146 @@
+---
+title: "STAT 240 - Assignment 4"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Problem 1a
+```{r, echo=TRUE}
+counts = function(x, n) {
+  x_max = max(x) 
+  x_min = min(x)
+  n_diff = (x_max-x_min) / n
+  result = vector(mode='numeric', length=n)
+  for(i in 1:length(x)) {
+    for(j in 1:n) {
+      if(j == 1) {
+        if (x[i]>=x_min & x[i]<=x_min+n_diff) {
+          result[j] = result[j] + 1
+          break
+        }
+      }
+      if (x[i]>x_min+(n_diff*(j-1)) & x[i]<=x_min+(n_diff*(j))) {
+        result[j] = result[j] + 1
+        break
+      }
+    }
+  }
+  return(result)
+}
+```
+
+## Problem 1b
+```{r, echo=TRUE}
+histo = function(x, n) {
+  x_max = max(x) 
+  x_min = min(x)
+  n_diff = (x_max-x_min) / n
+  counts = vector(mode='numeric', length=n)
+  for(i in 1:length(x)) {
+    for(j in 1:n) {
+      if(j == 1){
+        if(x[i]>=x_min & x[i]<=x_min+n_diff) {
+          counts[j] = counts[j] + 1
+          break
+        }
+      }
+      if(x[i]>x_min+(n_diff*(j-1)) & x[i]<=x_min+(n_diff*j)) {
+        counts[j] = counts[j] + 1
+        break
+      }
+    }
+  }
+  plot(1, type='n', xlab='x', ylab='counts',
+       xlim=c(x_min, x_max), ylim=c(0, max(counts))
+       )
+  for(i in 1:n) {
+    lines(c(x_min+(n_diff*(i-1)), x_min+(n_diff*(i-1))), c(0, counts[i]))
+    lines(c(x_min+(n_diff*i), x_min+(n_diff*i)), c(0, counts[i]))
+    lines(c(x_min+(n_diff*(i-1)), x_min+(n_diff*i)), c(counts[i], counts[i]))
+  }
+  lines(c(x_min, x_max), c(0, 0))
+}
+```
+
+## Problem 1c
+```{r, echo=FALSE}
+vec = c(rnorm(100, mean=-1, sd=1), rnorm(100, mean=1, sd=1))
+histo(vec, 10)
+```
+
+## Problem 1d
+```{r, echo=FALSE}
+x = c(0, 0, 0, 1, 1, 2)
+histo(x, 3)
+```
+
+```{r, echo=FALSE}
+library(RSQLite)
+library(rworldmap)
+library(rworldxtra)
+```
+
+## Problem 2a
+```{r, echo=FALSE, warning=FALSE}
+con = dbConnect(SQLite(), dbname="lab03.sqlite")
+worldmap = getMap(resolution='high')
+NrthAm = worldmap[which(worldmap$REGION == 'North America'), ]
+plot(NrthAm, main='Pokemon in Vancouver (Points)', 
+     xlim=c(-123.35, -122.65), ylim=c(49, 49.35))
+query = "SELECT latitude, longitude
+  FROM Vanpoke"
+output = dbGetQuery(con, query)
+points(output$longitude, output$latitude, col='orange', lwd=1, cex=0.3)
+```
+
+## Problem 2b
+```{r, echo=FALSE, warning=FALSE}
+library(MASS)
+library(sp)
+plot(NrthAm, main='Pokemon in Vancouver (Contour)', 
+     xlim=c(-123.35, -122.65), ylim=c(49, 49.35))
+# 2d kernel density estimation- kde2d
+kde = kde2d(output$longitude, output$latitude)
+contour(kde, col='orange', labcex=0.7, add=TRUE)
+```
+
+## Problem 2c
+The peaks of the plot are in Stanley Park, North Vancouver, Vancouver, and Burnaby. This is because the game is based on augmented reality and objectives of the game will be largely available in places with higher player (population) density.
+
+
+## Problem 2d
+```{r, echo=FALSE}
+plot(NrthAm, main='Pokemon in Vancouver (Contour) - Detailed', 
+     xlim=c(-123.35, -122.65), ylim=c(49, 49.35))
+contour(kde, col=69, labcex=0.7, add=TRUE)
+# stanley
+points(-123.13999, 49.299999, col='red', lwd=1, cex=0.2)
+text(-123.139999, 49.299999, labels='Stanley Park', cex=0.4)
+# n.van
+points(-123.066666, 49.316666, col='red', lwd=1, cex=0.2)
+text(-123.066666, 49.316666, labels='North Vancouver', cex=0.4)
+# ubc
+points(-123.2460, 49.2606, col='red', lwd=1, cex=0.2)
+text(-123.2460, 49.2606, labels='UBC', cex=0.4)
+# sfu
+points(-122.9199, 49.2781, col='red', lwd=1, cex=0.2)
+text(-122.9199, 49.2781, labels='SFU', cex=0.4)
+# burnaby
+points(-122.994560, 49.246445, col='red', lwd=1, cex=0.2)
+text(-122.994560, 49.246445, labels='Burnaby', cex=0.4)
+# richmond
+points(-123.133568, 49.166592, col='red', lwd=1, cex=0.2)
+text(-123.133568, 49.166592, labels='Richmond', cex=0.4)
+# coquitlam
+points(-122.793205, 49.283764, col='red', lwd=1, cex=0.2)
+text(-122.793205, 49.283764, labels='Coquitlam', cex=0.4)
+# vancouver
+points(-123.116226, 49.246292, col='red', lwd=1, cex=0.2)
+text(-123.116226, 49.246292, labels='Vancouver', cex=0.4)
+# sea & land
+text(-123.456136, 49.231787, col=4, labels='Sea', cex=1)
+text(-122.927722, 49.201812, col=2, labels='Land', cex=1)
+```

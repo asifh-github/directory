@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>StudentDB App: View</title>
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script type="text/javascript" src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+    <script>
+        // view page setup and validation
+        function view_setup() {
+            addEventListener('change', function(event) {
+                var valid = false;
+                var name_  = this.document.getElementById('view_name').value;
+                console.log(name_);
+                var age_  = this.document.getElementById('view_age').value;
+                console.log(age_);
+                var height_  = this.document.getElementById('view_height').value;
+                console.log(height_);
+                var mass_  = this.document.getElementById('view_mass').value;
+                console.log(mass_);
+                var hcc_  = this.document.getElementById('view_hcc').value;
+                console.log(hcc_);
+                var gpa_  = this.document.getElementById('view_gpa').value;
+                console.log(gpa_);
+                //check required inputs
+                if(/^[a-zA-Z ]+$/.test(name_)) {
+                    this.document.getElementById('view_name').style.background = 'none';
+                    if(age_){
+                        if(parseInt(age_) > 0 & parseInt(age_) < 100) {
+                            this.document.getElementById('view_age').style.background = 'none';
+                            if(gpa_) {
+                                if(parseFloat(gpa_) >= 0 & parseFloat(gpa_) <= 4.33) {
+                                    this.document.getElementById('view_gpa').style.background = 'none';
+                                    valid = true;
+                                }
+                                else{
+                                    this.document.getElementById('view_gpa').style.background = 'lightpink';
+                                }
+                            }
+                            else {
+                                this.document.getElementById('view_gpa').style.background = 'lightpink';
+                            }
+                        }
+                        else {
+                            this.document.getElementById('view_age').style.background = 'lightpink';
+                        }
+                    }
+                    else {
+                        this.document.getElementById('view_age').style.background = 'lightpink';
+                    }
+                }
+                else {
+                    this.document.getElementById('view_name').style.background = 'lightpink';
+                }
+                console.log(valid);
+                if(valid) {
+                    document.getElementById('update').removeAttribute('disabled');
+                }
+                else{
+                    document.getElementById('update').setAttribute('disabled', 'disabled');
+                }
+            });
+        };
+        </script>
+</head>
+<body onload="view_setup()">
+    <header class="container">
+        <h3 class="text-center text-muted font-weight-light">
+            Student Info
+        </h3>
+    </header>
+    <main>
+        <form action="/uprmStudent" method="post"
+        class="container text-center">
+            <div>
+                <table class="table table-sm table-bordered table-hover">
+                    <tr>
+                        <td class="font-weight-bold">
+                            <em>Student ID</em>
+                        </td>
+                        <td>
+                            <input type="number" class="form-control" placeholder="" value="<%= studentInfo.sid %>" id="view_id" name="u_id"
+                            readonly="readonly">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="font-weight-bold">
+                            Name
+                        </td>
+                        <td>
+                            <input type="text" class="form-control" placeholder="" value="<%= studentInfo.name %>" id="view_name" name="u_name">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="font-weight-bold">
+                            Age
+                        </td>
+                        <td>
+                            <input type="text" class="form-control" placeholder="" value="<%= studentInfo.age %>" id="view_age" name="u_age">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="font-weight-bold">
+                            Height
+                        </td>
+                        <td>
+                            <input type="number" step="0.01" class="form-control" placeholder="" value="<%= studentInfo.height %>" id="view_height" name="u_height">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="font-weight-bold">
+                            Mass
+                        </td>
+                        <td>
+                            <input type="number" step="0.01" class="form-control" placeholder="" value="<%= studentInfo.mass %>" id="view_mass" name="u_mass">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="font-weight-bold">
+                            Hair Color
+                        </td>
+                        <td>
+                            <input type="text" class="form-control" placeholder="" value="<%= studentInfo.haircolor %>" id="view_hcc" name="u_hcc">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="font-weight-bold">
+                            GPA
+                        </td>
+                        <td>
+                            <input type="number" step="0.01" class="form-control" placeholder="" value="<%= studentInfo.gpa %>" id="view_gpa" name="u_gpa">
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="btn-group btn-block" style="width: 800px;">
+                <input type="submit" class="btn btn-warning" id="delete" name="u_delete"
+                value="Delete" onclick="return confirm('Confirm delete student?')">
+                <input type="submit" class="btn btn-primary" id="update" name="u_update"
+                value="Update" disabled="disabled" onclick="return confirm('Confirm update student?')">
+            </div>
+            <div class="btn-block">
+                <button id="back" name="u_back"
+                class="btn btn-outline-dark" style="width: 800px;">
+                    Go Back
+                </button>
+            </div>
+        </form>
+    </main>
+    <footer></footer>
+    <!-- script link not working w/ main.js -->
+    <!-- <script type="text/javascript" src="main.js"></script> -->
+</body>
+</html>

@@ -1,0 +1,58 @@
+---
+title: "STAT 240 - Assignment 6"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Problem 1
+```{r, echo=TRUE}
+course_url = "https://www.sfu.ca/outlines.html?2022/spring/stat/240/d100"
+course_page = readLines(course_url)
+```
+# 1
+```{r, echo=TRUE}
+# extract all h3 heading 
+(heading3 = grep("<h3",course_page,value=TRUE))
+# remove html formatting pieces and replace them white space
+(heading3a = gsub("<[^<>]+>", " ", heading3))
+# replace extra white spaces
+gsub("\\s{2,}", " ", heading3a)
+```
+# 2
+```{r, echo=TRUE}
+# extract course number 
+cnum =  grep('<h1 id="name"',course_page,value=TRUE)
+cnum = gsub("<[^<>]+>", " ", cnum)
+cnum = gsub("\\s{2,}", " ", cnum)
+cnum
+```
+# 3
+```{r, echo=TRUE}
+# extract course title
+ctitle = grep('<h2 id="title"',course_page)
+ctitle = course_page[ctitle + 1]
+ctitle = gsub("\\s{2,}", " ", ctitle)
+ctitle
+```
+# 4
+```{r, echo=TRUE}
+# extract instructor
+cins = grep('<h4>Instructor',course_page)
+cins = course_page[cins + 1]
+cins = gsub("<[^<>]+>", " ", cins)
+cins = gsub("\\s{2,}", " ", cins)
+cins 
+```
+# 5
+```{r, echo=TRUE}
+# extract course time & location
+ctime_l = grep('<h4>Course Times',course_page)
+ctime_l = course_page[ctime_l + 1]
+ctime_l = gsub("<[^<>]+>", " ", ctime_l)
+ctime_l = gsub("\\s{2,}", " ", ctime_l)
+ctime_l = gsub("&ndash;", "-", ctime_l)
+ctime_l
+```

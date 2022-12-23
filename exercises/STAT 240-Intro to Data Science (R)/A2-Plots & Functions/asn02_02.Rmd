@@ -1,0 +1,29 @@
+---
+title: "STAT 240 - Assignment 2"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Problem 2
+
+```{r, echo=TRUE}
+par(mfrow=c(1, 1))
+radius = c(1:10000)
+volume = 4/3*pi*radius^3
+plot(radius, volume, main="Line plot of radius vs. volume of a sphere (using type='l')",
+     xlab="radius", ylab="volume", 
+     ylim=c(0, 1500000), xlim=c(0, 80), 
+     type='l', col="green", lwd=2)
+```
+
+
+```{r, echo=FALSE}
+library(ggplot2)
+dat = data.frame(raduis=radius, volume=volume)
+ggplot(dat, aes(x=radius, y=volume)) + geom_line(color="blue") +
+  labs(x="radius", y="volume", title="Line plot of radius vs volume of a sphere (ggplot version)") +
+  coord_cartesian(ylim=c(0, 1500000), xlim=c(0, 80))
+```

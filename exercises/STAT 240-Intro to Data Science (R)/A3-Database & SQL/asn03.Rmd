@@ -1,0 +1,59 @@
+---
+title: "STAT 240 - Assignment 3"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r, echo=FALSE}
+library(RSQLite)
+
+dbcon = dbConnect(SQLite(), dbname="lab03.sqlite")
+```
+
+## Problem 1
+```{r, echo=TRUE}
+query1 = "SELECT COUNT(DISTINCT year) AS DistinctYears FROM WinterO"
+dbGetQuery(dbcon, query1)
+```
+
+## Problem 2
+```{r, echo=FALSE}
+query2 = "SELECT DISTINCT Height_m FROM Pokem ORDER BY Height_m DESC"
+dbGetQuery(dbcon, query2)
+```
+
+## Problem 3
+# a
+```{r, echo=TRUE, warning=FALSE}
+query3 = "SELECT * FROM CA"
+system.time(for(i in 1:10000) {dbSendQuery(dbcon, query3)} )
+```
+# b
+```{r, echo=TRUE, warning=FALSE}
+query_out3 = dbSendQuery(dbcon, query3)
+system.time(for(i in 1:10000) {dbFetch(query_out3, 1)} )
+dbClearResult(query_out3)
+```
+# c
+'dbFetch' method was much faster than 'dbSendQuery'. And that's because 'dbfetch' gets a single row at a time from the query result whereas 'dbSendQuery' sends the query each time.
+
+## Problem 4
+The LIKE operator matches the given pattern with strings in the rows of the query result. Special characters such as % , _ , and \\\ along with other arbitrary characters are used to specify the requirements. For example, % character stands for 0 or more arbitrary characters, _ character stands for exactly 1 arbitrary characters, and \\\ character is used to escape the special characters % and _ .
+
+# Selects all rows from table CA where column Geographic_names /postal code are 3 letters long and starts with 'V4' and then one single character.
+```{r, echo=TRUE}
+query41 = "SELECT * FROM CA WHERE Geographic_name LIKE 'V4_'"
+query_out41 = dbSendQuery(dbcon, query41)
+dbFetch(query_out41, 5)
+dbClearResult(query_out41)
+```
+# Selects all rows from table CA where column Region has brackets '()' in the  Region / city names.
+```{r, echo=TRUE}
+query42 = "SELECT * FROM CA WHERE Region LIKE '%(%)'"
+query_out42 = dbSendQuery(dbcon, query42)
+dbFetch(query_out42, 5)
+dbClearResult(query_out42)
+```

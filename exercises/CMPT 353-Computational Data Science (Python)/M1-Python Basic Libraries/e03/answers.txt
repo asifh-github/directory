@@ -1,0 +1,3 @@
+1. Loess produced better results for the CPU temperatures. That's because Loess smoothing (with frac=0.035) produces a better smoothing of the data than the Kalman smoothing in my program. The kalman smoothing has noticable bumps in the graph, therefore, the smoothing of the values is not as good as the Loess smoothing in my program.
+
+2. These values, such as acceleration and rate of turning, could have been used to smooth the graph as close to (or better) than what Loess smoothing did in my program. Such as the rate of turning could have been used to smooth* the flactution in left and right [side] directions when the GPS was moving in a straight line with some movement (flactuations) on both sides (left & right).

@@ -1,0 +1,12 @@
+1. No, because it feels right to approach the problem in the way we did, by breaking the entire sample into two categories and then trying to get answers from it. Yet, we did not get a p-value < 0.05, therefore, I am reasonably comfortable coming to a conclusion at p-value < 0.05.
+
+2. Same number of pair-wise T-test as Post Hoc analysis pair-wise comparisons, which is 21. And if we looked for p-value < 0.05 in them, we are likely to get an equal probability of having any false conclusions as Post Hoc analysis, which is 19/21.
+
+3. Sorting Algorihtms Rank:
+    1. qs1
+    2. qs2 and qs3
+    3. partition_sort
+    4. merge1 and qs5 5
+    5. qs4 
+    - Rank 2: qs2 & qs3 can not be distinguished
+    - Rank 4: merge1 & qs5 can not be distinguished

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="stylesheets/main.css">
+    <title>StudentDB App: Add</title>
+</head>
+<body onload="add_setup()">
+    <header class="container text-center">
+        <h3 class="text-muted font-weight-light">
+            Add Student
+        </h3>
+    </header>
+    <main>
+        <form id="addForm" action="/addStudent" method="post"
+        class="container text-center">
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label font-weight-bold" for="add_id">
+                    Student ID
+                </label>
+                <input type="number" class="col-sm-8 form-control" placeholder="(Required) Enter an unique id in numerics only" 
+                value="" id="add_id" name="f_id">
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label font-weight-bold" for="add_name">
+                    Name
+                </label>
+                <input type="text" class="col-sm-8 form-control" placeholder="(Required) Enter name in alphabets only" 
+                value="" id="add_name" name="f_name">
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label font-weight-bold" for="add_age">
+                    Age
+                </label>
+                <input type="number" class="col-sm-8 form-control" placeholder="(Required) Enter age in years" 
+                value="" id="add_age" name="f_age">
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label font-weight-bold" for="add_height">
+                    Height
+                </label>
+                <input type="number" step="0.01" class="col-sm-8 form-control" placeholder="(Not required) Enter height in cm" 
+                value="" id="add_height" name="f_height">
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label font-weight-bold" for="add_mass">
+                    Mass
+                </label> 
+                <input type="number" step="0.01" class="col-sm-8 form-control" placeholder="(Not required) Enter mass in lbs" 
+                value="" id="add_mass" name="f_mass">
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label font-weight-bold" for="add_hcc">
+                    Hair Color
+                </label>
+                <input type="text" class="col-sm-8 form-control" placeholder="(Not required) Enter a valid color name" 
+                value="" id="add_hcc" name="f_hcc">
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label font-weight-bold" for="add_gpa">
+                    GPA
+                </label>
+                <input type="number" step="0.01" class="col-sm-8 form-control" placeholder="(Required) Enter gpa in range: 0 - 4.33" 
+                value="" id="add_gpa" name="f_gpa">
+            </div>
+            <div class="btn-group btn-block" style="width: 800px;">
+                <button class="btn btn-danger" id="cancel" name="f_cancel">
+                    Cancel
+                </button>
+                <input type="submit" class="btn btn-success" value="Done" id="add_btn" name="f_addNew" disabled="disabled">
+            </div>
+        </form>
+        <p id="sid_check" class="container text-center">"Duplicate Student ID entries will not be added."</p>
+    </main>
+    <footer></footer>
+    <script type="text/javascript" src="main.js"></script>
+</body>
+</html>

@@ -1,0 +1,13 @@
+1. By-week T-test (Fix 2: using central limit theorem), because other three tests do not satisfy the assumptions of the T-test, i.e., data is normally distributed and has equal variance.
+
+2. 
+Original T-test: There are different number of comments on weekdays vs. on weekends
+
+Transformed data T-test: There are different square-root of number of comments on weekdays vs. weekends
+
+3. By-week approach can get us closest to the answer, however, our hypothesis will change slightly as we are now looking at the relationship between weekdays and weekends for each week in two years (2012-2013).
+
+4. On average, weekdays have more comments on reddit /r/canada.
+
+
+

@@ -1,0 +1,23 @@
+---
+title: "STAT 240 -  Assignment 2"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Problem 6
+
+```{r, echo=TRUE}
+fib_sum = function(n) {
+  if(n == 0) {
+    return(0)
+  } 
+  if(n == 1) {
+    return(1)
+  }
+  return(fib_sum(n-1) + fib_sum(n-2) + 1)
+}
+fib_sum(20)
+```

@@ -1,0 +1,83 @@
+Dataset 1:
+    x_min: -22.635878
+    x_max: 35.237055
+    x_mean: 8.717696
+    x_sd: 12.155517
+    y_min: -2.565088
+    y_max: 27.384153
+    y_mean: 12.522874
+    y_sd: 6.639964
+    r: 0.950326
+    
+    Data-1 dataset contains two variables x and y where x has a mean of 8.71 with standard deviation = 12.15, and y has a mean 
+    of 12.52 with standard deviation = 6.64; x and y have a strong positive relationship.
+
+Dataset 2:
+    x_min: -33.271113
+    x_max: 27.647
+    x_mean: -0.710787
+    x_sd: 11.481584
+    y_min: -18.621804
+    y_max: 14.147315
+    y_mean: -0.748987
+    y_sd: 6.257918
+    r: 0.955153
+    
+    Data-2 dataset contains two variables x and y where x has a mean of -0.71 with standard deviation = 11.48, and y has a mean 
+    of -0.74 with standard deviation = 6.25; x and y have a strong positive relationship (r-value similar to Data-1).
+    
+Dataset 3:
+    x_min: -2.449064
+    x_max: 4.518885
+    x_mean: 0.968907
+    x_sd: 2.235558
+    y_min: 6.641734
+    y_max: 10.551871
+    y_mean: 8.508535
+    y_sd: 1.149301
+    r: 0.981937
+    
+    Data-3 dataset contains two variables x and y where x has a mean of 0.97 with standard deviation = 2.24, and y has a mean 
+    of 8.51 with standard deviation = 1.14; x and y have a strong positive relationship.
+    
+Dataset 4:
+    x_min: 0.0
+    x_max: 87.3767
+    x_mean: 49.905086
+    x_sd: 28.508611
+    y_min: 0.0
+    y_max: 44.56504
+    y_mean: 18.553837
+    y_sd: 16.545896
+    r: -0.081193
+    
+    Data-4 dataset contains two variables x and y where x has a mean of 49.91 with standard deviation = 28.51, and y has a mean 
+    of 18.55 with standard deviation = 16.55; x and y have a weak negative relationship.
+    
+Dataset 5:
+    x_min: 4.337892
+    x_max: 91.052863
+    x_mean: 49.909994
+    x_sd: 28.500001
+    y_min: 0.055498
+    y_max: 49.934197
+    y_mean: 18.555525
+    y_sd: 16.540796
+    r: -0.088236
+    
+    Data-5 dataset contains two variables x and y where x has a mean of 49.91 with standard deviation = 28.50, and y has a mean 
+    of 18.56 with standard deviation = 16.54; x and y have a weak negative relationship (dataset is similar to Data-4).  
+    
+Dataset 6:
+    x_min: -24.333821
+    x_max: 35.402139
+    x_mean: 7.216155
+    x_sd: 11.921599
+    y_min: -22.956357
+    y_max: 36.079874
+    y_mean: 7.602215
+    y_sd: 11.764382
+    r: 0.935069
+    
+    Data-6 dataset contains two variables x and y where x has a mean of 7.22 with standard deviation = 11.92, and y has a mean 
+    of 7.60 with standard deviation = 11.76; x and y have a strong positive relationship (r-value similar to Data-1 & Data-2).     

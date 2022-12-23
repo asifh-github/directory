@@ -1,0 +1,13 @@
+Task:
+
+In this assignment, you will be writing the HTML markup for a fictional pet store.  You are required to create the file from scratch based on the example shown below.  Create an HTML page that resembles the picture at the end of this assignment description.
+
+Clicking on the picture of Monsieur Hamière will redirect the user to a larger picture of the pig (hamiere.png). Clicking on each picture of the related animals will navigate the user to the related animal’s page (you must have at least two other pages – it is up to you as to the content of the other pages but they should have the same structure). All other links do not lead anywhere (you may use href=”#”).  You are only given pictures/resources for Monsieur Hamière as part of this assignment, you free to use any other images to complete this page (for example, you may use any pictures for the related animals, not necessarily the ones shown below - you may be as creative as you'd like for the related animals).
+
+ 
+
+Technical Requirements:
+
+You must recreate the exact look of the document using HTML only, you may not use styles of any kind.
+You may make sure to use proper semantic HTML. Marks will be deducted for improper or missing semantic tags. Hint: pay special attention to differences in font sizes.
+All HTML pages submitted in this assignment validate HTML5 syntax to ensure that it displays properly in every browser. Your webpages must be free of errors and warnings

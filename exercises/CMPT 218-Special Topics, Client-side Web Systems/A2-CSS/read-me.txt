@@ -1,0 +1,51 @@
+ Task:
+
+In this assignment, you will be writing HTML and CSS files for a textbook website.
+
+ 
+
+Markup:
+
+Using the img.zip images files found in the resources section of this assignment, write an HTML5 file that resembles the screenshots below (which shows the browser window without styles applied):
+
+Screen Shot 1 (Click to enlarge)Download Screen Shot 1 (Click to enlarge)
+Screen Shot 2021-01-31 at 11.05.35 PM-1.png
+
+Screen Shot 2 (Click to enlarge)Download Screen Shot 2 (Click to enlarge)
+Screen Shot 2021-01-31 at 11.04.58 PM-1.png
+
+Please note that the images are displayed in block (vertical space on the page) and due to a lack of space, not all images are shown in screenshots 1 and 2. 
+
+
+Technical Requirements:
+
+You must use proper HTML tags, try to incorporate the meaning of the element as much as possible
+Valid HTML structure (it must be valid HTML5)
+The pictures of the textbooks are links to the details page of the textbook. You do not need to implement this in this assignment.
+ 
+
+ 
+
+Stylesheet
+
+Add styles in at least one CSS file to create the appearances and behaviours below. A quick demo of the final product can be found here: https://www2.cs.sfu.ca/CourseCentral/218/bobbyc/v/demo.mp4
+
+ 
+
+Screen Shot 3 (Click to enlarge)Download Screen Shot 3 (Click to enlarge)
+Screen Shot 2021-01-31 at 10.58.06 PM-1.png
+
+Hovering over the individual pictures will make a “see MORE” button’s opacity transition into view. It does not need to redirect anywhere.
+Hovering over the individual pictures will create a shadow affect.
+Pictures should be displayed four per row, with some space between them. When resizing the window and the width of the window is less than or equal to 770px, only two pictures per row should be showing; when the window is less than or equal to 480px, only one picture per row should be showing.
+The colors and spaces should somewhat match the screenshot and demo.
+Requirements that are not stated here are up for interpretation.
+ 
+
+Technical Requirements:
+
+You must produce valid CSS
+You may make reasonable assumptions about text or colors.
+You must use at least one external stylesheet.
+You may only use CSS (no CSS libraries such as Bootstrap or preprocessors such as SASS),
+No JavaScript is allowed for this assignment.

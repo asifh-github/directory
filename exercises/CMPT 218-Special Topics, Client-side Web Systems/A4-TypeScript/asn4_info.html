@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <title>My Dejimon Tracker: Info</title>
+</head>
+<body onload="moreInfo()">
+    <header>
+    </header>
+    <main class="container">
+        <h3 class="text-center text-muted font-weight-light">
+            More Info
+        </h3>
+
+        <table class="table table-sm table-bordered table-hover">
+            <tr>
+                <td class="font-weight-bold">Name</td>
+                <td id="getName"></td>
+            </tr>
+            <tr>
+                <td class="font-weight-bold">Type</td>
+                <td id="getType"></td>
+            </tr>
+            <tr>
+                <td class="font-weight-bold">Height</td>
+                <td id="getHeight"></td>
+            </tr>
+            <tr>
+                <td class="font-weight-bold">Weight</td>
+                <td id="getWeight"></td>
+            </tr>
+            <tr>
+                <td id="getAliblityType" class="font-weight-bold"></td>
+                <td id="getAbility"></td>
+            </tr>
+            <tr>
+                <td class="font-weight-bold">Overall</td>
+                <td id="getOverall"></td>
+            </tr>
+        </table>
+
+        <button id="back" class="btn btn-block btn-outline-dark">
+                Go Back
+        </button>
+    </main>
+    <footer>
+    </footer>
+    <!-- links all files together -->
+    <script src="./Dejimon.js"></script>
+    <script src="./DejimonTracker.js"></script>
+    <script src="./main.js"></script>
+</body>
+</html>

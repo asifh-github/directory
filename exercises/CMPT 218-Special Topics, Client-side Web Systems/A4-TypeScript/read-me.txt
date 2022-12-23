@@ -1,0 +1,33 @@
+Description:
+
+In remote areas of Korea, there live mythical pig-like creatures called Dejimons.  Dejimons come in all shapes and sizes and have special magical abilities.  You are a Dejimon collector and would like to keep track of all your collected Dejimons. Your task in this assignment is to create a TypeScript application that will allow you to add, delete, and view all of your stored Dejimons.
+
+There are three main categories of Dejimons (and no other): Yorkshire, Lean, and Potbelly.
+
+Each Dejimon has a name, overall strength, height, and weight (to be creative, you may add more attributes if you’d like).  In addition, each category of Dejimon has special magical abilities that can be measured with an integer between 0 and 100. Yorkshires have water and ice abilities, Leans have fire and charm abilities, and Potbellies have electric abilities. The overall strength of the Dejimon is the average value of the magical abilities, the height, and the weight (you can be more creative here as well :P).
+
+For example, there could exist a Potbellied Dejimon called Porkichu that has a height of 45, weight 120, and electrical ability of 97 (the last attribute is due to the fact that it is a Potbelly).  The units of measurements are totally up to you. In this case, Porkichu would have an overall strength of 87.33.     
+
+ 
+
+ 
+
+User Requirements:
+
+The main page should show only the name and type of all Dejimons currently in the system. It should contain buttons (or links) that allows the user to delete the Dejimon or to display more information about it.
+When the user clicks on the More info button, more information will be revealed. This could be on a separate page or it can be displayed directly on the main page.
+When the user clicks the Delete button, an alert window should be displayed asking the user to confirm the deletion of the Dejimon.
+The main page should also have an Add button that allows the user to add new Dejimons into the application. The button could redirect you to a new window or reveal a form in the main page.
+An example layout / workflow could look something like this (you do not need to follow this, try to think of better workflows and other ways to represent the data :).
+Screen Shot 2021-02-28 at 10.38.01 PM.png      
+
+ 
+
+Technical Requirements
+
+The exact design is totally up to you. For this assignment, you are free to use libraries such as Bootstrap to help with the design process
+Your code must have a modular design as discussed in the topic 5 lectures.
+You must use strict TypeScript for this assignment meaning that all types must be declared in your code. You should also refrain from using the any type whenever possible.
+You must use LocalStorage to store and retrieve your Dejimons. The data must persist even after closing the application
+You may not use full frameworks such as Angular, React.js, or Vue.js for this assignment.
+Your application should give meaningful feedback on incorrect inputs or error situations.

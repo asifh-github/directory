@@ -1,0 +1,28 @@
+Part A - HTML/CSS:
+
+Create two files called “histogram.html” and “histogram.css” to recreate something that resembles the picture below, leaving out the circles on right hand side of the “Histogram” container.  In this assignment, you do not need to follow the suggested design.  In fact, you try to come up with a better design. Please note that the box around the picture is to indicate the boundaries of the picture and should not be included on the webpage. The values of the input boxes should also be initialized accordingly.
+
+sample output of page  
+
+Part B – Javascript
+
+Create a file called “calculate.js”.  This file will contain logic to read an uploaded csv file that contains rows of student’s names and grades. A file handler should parse the file’s data into an appropriate JavaScript structure. Here's a link to show you how JavaScript reads file content:
+
+JavaScript upload file content Links to an external site. 
+
+For example, the figure above could have been generated from the following file:
+
+data.csv Download data.csv 
+
+Please note that there is one student in the A+ range, three students in the A range, etc …
+
+Each time the user changes the lower bounds of any of the letter-grades, the Histogram should dynamically adjust itself to represent the number of students in each range. I used the letter ‘O’ to represent a student, but please be creative here, you can use table cells, div box widths, images, etc.
+
+If there is an invalid input of any kind, i.e. bounds of letter-grades overlap, string is entered as input, your program should deal with it accordingly (it is up to you how you’d like to do that :D).
+
+The program should also dynamically generate the Stats for the course including:
+
+The highest grade
+The lowest grade
+The Mean grade
+The Median grade

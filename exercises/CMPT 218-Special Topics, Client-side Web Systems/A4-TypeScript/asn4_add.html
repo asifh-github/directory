@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <title>My Dejimon Tracker: Add</title>
+</head>
+<body onload="addToList()">
+    <header>
+    </header>
+    <main class="container">   
+        <h3 class="text-center text-muted font-weight-light">
+                Add Dejimon
+        </h3>
+
+        <table class="table table-sm table-bordered table-hover">
+            <tr>
+                <td class="font-weight-bold">Name</td>
+                <td>
+                    <input type="text" id="putName" class="btn-block border-0" type="text" value="">
+                </td>
+            </tr>
+            <tr>
+                <td class="font-weight-bold">Height</td>
+                <td>
+                    <input id="putHeight" class="btn-block border-0" type="number" value="">
+                </td>
+            </tr>
+            <tr>
+                <td class="font-weight-bold">Weight</td>
+                <td>
+                    <input id="putWeight" class="btn-block border-0" type="number" value="">
+                </td>
+            </tr>
+            <tr>
+                <td class="font-weight-bold">Type</td>
+                <td>
+                    <select id="putType" class="form-control-sm btn-block border-0" >
+                        <option selected>Choose one...</option>
+                        <option value="1">Yorkshire</option>
+                        <option value="2">Lean</option>
+                        <option value="3">Potbelly</option>
+                      </select>
+                </td>
+            </tr>
+            <tr>
+                <td class="font-weight-bold">Unique Ability</td>
+                <td>
+                    <input id="putAbility" class="btn-block border-0" type="number">
+                </td>
+            </tr>
+        </table>
+
+        <section class="btn-group btn-block">
+            <button id="cancel" class="btn btn-danger">
+                    Cancel
+            </button>
+            <button id="addNew" class="btn btn-success">
+                    Done
+            </button>
+        </section>
+    </main>
+    <footer>
+    </footer>
+    <!-- links all files together  -->
+    <script src="./Dejimon.js"></script>
+    <script src="./DejimonTracker.js"></script>
+    <script src="./main.js"></script>
+</body>
+</html>

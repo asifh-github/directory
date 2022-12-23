@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Asn3 Histogram Generator</title>
+    <link rel="stylesheet" href="./histogram.css">
+    <script src="calculate.js"></script>
+</head>
+<body onload="init()">
+    <header>
+        <!-- header -->
+        <h1>My Histogram Generator</h1>
+        <input id="fileInput" type="file" name="doc"/>   
+    </header>
+    <main>
+        <!-- Lower bounds -->
+        <section class="bounds">
+            <h3>Lower bounds</h3>
+            <table>
+                <tr>
+                    <td>Max</td>
+                    <td>
+                        <input type="number" class="white" value="100.00">
+                    </td>
+                </tr>
+                <tr>
+                    <td>A+</td>
+                    <td>
+                        <input type="number" class="white" value="95.00">
+                    </td>
+                </tr>
+                <tr>
+                    <td>A</td>
+                    <td>
+                        <input type="number" class="white" value="90.00">
+                    </td>
+                </tr>
+                <tr>
+                    <td>A-</td>
+                    <td>
+                        <input type="number" class="white" value="85.00">
+                    </td>
+                </tr>
+                <tr>
+                    <td>B+</td>
+                    <td>
+                        <input type="number" class="white" value="80.00">
+                    </td>
+                </tr>
+                <tr>
+                    <td>B</td>
+                    <td>
+                        <input type="number" class="white" value="75.00">
+                    </td>
+                </tr>
+                <tr>
+                    <td>B-</td>
+                    <td>
+                        <input type="number" class="white" value="70.00">
+                    </td>
+                </tr>
+                <tr>
+                    <td>C+</td>
+                    <td>
+                        <input type="number" class="white" value="65.00">
+                    </td>
+                </tr>
+                <tr>
+                    <td>C</td>
+                    <td>
+                        <input type="number" class="white" value="60.00">
+                    </td>
+                </tr>
+                <tr>
+                    <td>C-</td>
+                    <td>
+                        <input type="number" class="white" value="55.00">
+                    </td>
+                </tr>
+                <tr>
+                    <td>D</td>
+                    <td>
+                        <input type="number" class="white" value="50.00">
+                    </td>
+                </tr>
+                <tr>
+                    <td>F</td>
+                    <td>
+                        <input type="number" class="white" value="0.00">
+                    </td>
+                </tr>
+            </table>
+        </section>
+        
+        <!-- Histogram -->
+        <section class="histogram">
+            <h3>Histogram</h3>
+            <table>
+                <tr>
+                    <td>A+</td>
+                    <td id="a+">--</td>
+                </tr>
+                <tr>
+                    <td>A</td>
+                    <td id="a">--</td>
+                </tr>
+                <tr>
+                    <td>A-</td>
+                    <td id="a-">--</td>
+                </tr>
+                <tr>
+                    <td>B+</td>
+                    <td id="b+">--</td>
+                </tr>
+                <tr>
+                    <td>B</td>
+                    <td id="b">--</td>
+                </tr>
+                <tr>
+                    <td>B-</td>
+                    <td id="b-">--</td>
+                </tr>
+                <tr>
+                    <td>C+</td>
+                    <td id="c+">--</td>
+                </tr>
+                <tr>
+                    <td>C</td>
+                    <td id="c">--</td>
+                </tr>
+                <tr>
+                    <td>C-</td>
+                    <td id="c-">--</td>
+                </tr>
+                <tr>
+                    <td>D</td>
+                    <td id="d">--</td>
+                </tr>
+                <tr>
+                    <td>F</td>
+                    <td id="f">--</td>
+                </tr>
+            </table>
+        </section>
+        
+        <!-- Stats -->
+        <section class="stats">
+            <h3>Stats</h3>
+            <table>
+                <tr>
+                    <td>Highest</td>
+                    <td id="max">--</td>
+                </tr>
+                <tr>
+                    <td>Lowest</td>
+                    <td id="min">--</td>
+                </tr>
+                <tr>
+                    <td>Mean</td>
+                    <td id="avg">--</td>
+                </tr>
+                <tr>
+                    <td>Median</td>
+                    <td id="mid">--</td>
+                </tr>
+            </table>
+        </section>
+    </main>    
+</body>
+</html>

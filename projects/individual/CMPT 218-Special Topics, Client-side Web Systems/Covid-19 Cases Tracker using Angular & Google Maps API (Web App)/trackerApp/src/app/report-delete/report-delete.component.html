@@ -1,0 +1,29 @@
+<div
+class="text-center"
+>
+    <section>
+        <h3
+        class="text-muted font-weight-light"
+        >
+            Delete
+        </h3>
+    </section>
+
+    <p>Confirm delete <i>COVID-19</i> report?</p>
+
+    <section
+    class="container btn-group btn-block">
+        <button
+        routerLink="/main"
+        class="btn btn-outline-danger"
+        >
+            No
+        </button>
+        <button 
+        (click)="onDelete($event)"
+        class="btn btn-outline-success"
+        >
+            Yes
+        </button>
+    </section>
+</div>

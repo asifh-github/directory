@@ -1,0 +1,72 @@
+<section>
+    <h3
+    class=" text-center text-muted font-weight-light"
+    >
+        More Info
+    </h3>
+</section>
+
+<section>
+    <table
+    class=" container table table-sm table-bordered table-hover"
+    >   
+        <tr>
+            <td
+            class="font-weight-bold"
+            >
+                Serial No.
+            </td>
+            <td>{{ report.id }}</td>
+        </tr>
+        <tr>
+            <td
+            class="font-weight-bold"
+            >
+                Location
+            </td>
+            <td>{{ report.location }}</td>
+        </tr>
+        <tr>
+            <td
+            class="font-weight-bold"
+            >
+                Date & Time
+            </td>
+            <td>{{ report.date | date: 'medium'}}</td>
+        </tr>
+        <tr>
+            <td
+            class="font-weight-bold"
+            >
+                Reporter
+            </td>
+            <td>{{ report.name }}</td>
+        </tr>
+        <tr>
+            <td
+            class="font-weight-bold"
+            >
+                Phone
+            </td>
+            <td>{{ report.phone }}</td>
+        </tr>
+        <tr>
+            <td
+            class="font-weight-bold"
+            >
+                Notes
+            </td>
+            <td>{{ report.notes }}</td>
+        </tr>
+    </table>
+</section>
+
+<section
+class=" container">
+    <button
+    routerLink="/main"
+    class="btn btn-block btn-outline-dark"
+    >
+        Go Back
+    </button>
+</section>

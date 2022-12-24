@@ -1,0 +1,39 @@
+<table
+class="table text-center table-hover table-sm table-striped"
+>
+    <thead>
+        <tr>
+            <th>Location</th>
+            <th>Reporter</th> 
+            <th>Date & Time</th>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr
+        *ngFor="let r of reportArr"
+        >
+            <td>{{ r.location }}</td>
+            <td>{{ r.name }}</td>
+            <td>{{ r.date | date: 'mediumDate' }}</td>
+            <td>
+                <a
+                routerLink="/moreinfo/{{r.id}}"
+                class="btn btn-block btn-link btn-sm"
+                >
+                    More Info
+                </a>
+            </td>
+            <td>
+                <a
+                routerLink="/delete/{{r.id}}"
+                class="btn btn-block btn-link btn-sm"
+                >
+                    Delete
+                </a>
+            </td>
+        </tr>
+    </tbody> 
+</table>
+

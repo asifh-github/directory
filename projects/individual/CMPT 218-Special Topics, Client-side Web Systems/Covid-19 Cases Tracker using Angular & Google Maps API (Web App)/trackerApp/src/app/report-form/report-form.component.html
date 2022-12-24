@@ -1,0 +1,299 @@
+<section>
+    <h3
+    class="text-center text-muted font-weight-light"
+    >
+        Create Report
+    </h3>
+</section>
+
+<section>
+    <form
+    [formGroup]="form"
+    (ngSubmit)="onCreate(form.value)"
+    class="container"
+    >
+        <div
+        class="form-group row"
+        >
+            <label
+            for="location_options_form"
+            class="font-weight-bold col-sm-2 col-form-label"
+            >
+                Location
+            </label>
+            <div
+            class="form-control-sm form-check form-check-inline"
+            >
+                <input
+                type="radio"
+                name="location_options_form"
+                (click)="locationOptions('Select from Exixting Locations')"
+                class="form-check-input"
+                >
+                <label
+                for="location_options_form"
+                class="form-check-label"
+                >
+                    Select from Existing Location
+                </label>
+            </div>        
+            <div
+            class="form-control-sm form-check form-check-inline"
+            >
+                <input
+                type="radio"
+                name="location_options_form"
+                (click)="locationOptions('Add a New Location')"
+                class="form-check-input"
+                >
+                <label
+                for="location_options_form"
+                class="form-check-label"
+                >
+                    Add a New Location
+                </label>
+            </div>
+        </div>
+        <div
+        *ngIf="locationIsNew('Select from Exixting Locations')"
+        class="form-group row"
+        >
+            <label
+            for="location_form"
+            class="col-sm-2 col-form-label"
+            >
+            </label>
+            <select
+            name="location_form"
+            formControlName="location" 
+            class="form-control-sm col-sm-10 border-primary"
+            >
+                <option 
+                (click)="location('')"
+                value = " "
+                >
+                    Choose one
+                </option>
+                <option 
+                value="Metrotown"
+                >
+                    Metrotown
+                    <span *ngIf="isMetrotown('Metrotown')">
+                        <span
+                        value="-123.0076"
+                        formControlName="location_long"
+                        class="form-control">
+                        </span>
+                        <span
+                        value="49.2276"
+                        formControlName="location_lat"
+                        class="form-control">
+                        </span>
+                    </span>
+                </option>
+                <option
+                (click)="location('SFU Downtown')"
+                 value="SFU Downtown"
+                >
+                    SFU Downtown
+                </option>
+                <option
+                (click)="location('SFU Surrey')"
+                value="SFU Surrey"
+                >
+                    SFU Surrey
+                </option>
+                <option 
+                (click)="location('SFU Burnaby')"
+                value="SFU Burnaby"
+                >
+                    SFU Burnaby
+                </option>
+                <option 
+                (click)="location('UBC')"
+                value="UBC"
+                >
+                    UBC             
+                </option>
+            </select>
+        </div>    
+        <div
+        *ngIf="locationIsNew('Add a New Location')"
+        class="form-group row"
+        >
+            <label
+            for="location_form"
+            class="col-sm-2 col-form-label"
+            >
+            </label>
+            <input
+            type="text" 
+            name="location_form"
+            placeholder="Enter a Location"  
+            formControlName="location"
+            class="form-control-sm col-sm-6 border-light"
+            >
+            <input
+            type="number" 
+            name="location_from_lat"
+            placeholder="Enter Latitude"  
+            formControlName="location_lat"
+            class="form-control-sm col-sm-2 border-light"
+            >
+            <input
+            type="number" 
+            name="location_form_long"
+            placeholder="Enter Longitude"  
+            formControlName="location_long"
+            class="form-control-sm col-sm-2 border-light"
+            >
+        </div>
+        <div
+        class="form-group row"
+        >
+            <label
+            for="date_form"
+            class="font-weight-bold col-sm-2 col-form-label"
+            >
+                Date & Time
+            </label>
+            <input
+            type="datetime-local" 
+            name="date_form" 
+            formControlName="date"
+            class="form-control-sm col-sm-10 border-light"
+            >
+        </div>
+        <div
+        class="form-group row"
+        >
+            <label
+            for="name_form"
+            class="font-weight-bold col-sm-2 col-form-label"
+            >
+                Name
+            </label>
+            <input
+            type="text" 
+            name="name_form"
+            placeholder="Your Name"  
+            formControlName="name"
+            class="form-control-sm col-sm-10 border-light"
+            >
+        </div>
+        <div
+        class="form-group row"
+        >
+            <label
+            for="phone_form"
+            class="font-weight-bold col-sm-2 col-form-label"
+            >
+                Contact Number
+            </label>
+            <input
+            type="tel" 
+            name="phone_form"
+            placeholder="###-###-####" 
+            formControlName="phone"
+            class="form-control-sm col-sm-10 border-light"
+            >
+        </div>
+        <div
+        class="form-group row"
+        >
+            <label
+            for="notes_form"
+            class="font-weight-bold col-sm-2 col-form-label"
+            >
+                Additional Notes*
+            </label>
+            <input
+            type="text" 
+            name="notes_form"
+            placeholder="(Optional)"  
+            formControlName="notes"
+            class="form-control-sm col-sm-10 border-light"
+            >
+        </div>
+        <div
+        class="container btn-group btn-block"
+        >
+        <button 
+        routerLink="/main"
+        type="button"
+        class="btn btn-danger"
+        >
+            Cancel
+        </button>
+        <button
+        type="submit"
+        class="btn btn-success"
+        >
+            Done
+    </button>
+    </div>
+    <div>
+        <span *ngIf="isMetrotown('Metrotown')">
+            <span
+            value="-123.0076"
+            formControlName="location_long"
+            class="form-control">
+            </span>
+            <span
+            value="49.2276"
+            formControlName="location_lat"
+            class="form-control">
+            </span>
+        </span>
+        <span *ngIf="isUBC('UBC')">
+            <span
+            value="-123.2460"
+            formControlName="location_long"
+            class="form-control">
+            </span>
+            <span
+            value="49.2606"
+            formControlName="location_lat"
+            class="form-control">
+            </span>
+        </span>
+        <span *ngIf="isBurnaby('SFU Burnaby')">
+            <span
+            value="-122.9180"
+            formControlName="location_long"
+            class="form-control">
+            </span>
+            <span
+            value="49.2768"
+            formControlName="location_lat"
+            class="form-control">
+            </span>
+        </span>
+        <span *ngIf="isSurrey('SFU Surrey')">
+            <span
+            value="-122.8490"
+            formControlName="location_long"
+            class="form-control">
+            </span>
+            <span
+            value="49.1867"
+            formControlName="location_lat"
+            class="form-control">
+            </span>
+        </span>
+        <span *ngIf="isDowntown('SFU Downtown')">
+            <span
+            setvalue="-123.1113"
+            formControlName="location_long"
+            class="form-control">
+            </span>
+            <span
+            value="49.2848"
+            formControlName="location_lat"
+            class="form-control">
+            </span>
+        </span> 
+    </div>
+    </form>
+</section>
+

@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script type="text/javascript" src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="/stylesheets/main.css" />
+    <title>QQapp:Signup</title>
+</head>
+<body onload="user_signup()">
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <a class="navbar-brand" href="/">QuickQook</a>
+      <div class="container-fluid">
+        <ul class="navbar-nav">
+          <li class="navbar-item">
+            <a class="nav-link" href="/">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/favourites">Favourites</a>
+          </li>
+        </ul>
+        <ul class="navbar-nav navbar-right">
+          <li class="nav-item active">
+            <a class="nav-link" href="login.html">Login/Signup</a>
+          </li>
+        </ul>
+      </div>
+  </nav>
+
+    <header class="container-md text-center">
+        <h2>QQ: New Account Signup</h2>
+    </header>
+
+    <main class="container-md text-center">
+        <form id="signupForm" action="/userSignup" method="post">
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label font-weight-bold" for="fname">
+                  First Name
+                </label>
+                <input type="text" class="col-sm-7 form-control" placeholder="" value="" id="fname" name="f_fname">
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label font-weight-bold" for="lname">
+                  Last Name
+                </label>
+                <input type="text" class="col-sm-7 form-control" placeholder="" value="" id="lname" name="f_lname">
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label font-weight-bold" for="bday">
+                  Birthdate
+                </label>
+                <input type="date" class="col-sm-7 form-control" placeholder="" value="" id="bday" name="f_bday">
+            </div>
+            <div class="form-group row">
+              <label class="col-sm-3 col-form-label font-weight-bold" for="gender">
+                Gender
+              </label>
+              <select class="col-sm-7 form-control custom-select" id="gender" name="f_gender">
+                <option value=0 selected>Select...</option>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+                <option value="Other">Other</option>
+              </select>
+          </div>
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label font-weight-bold" for="occ">
+                  Occupation
+                </label>
+                <input type="text" class="col-sm-7 form-control" placeholder="" value="" id="occ" name="f_occ">
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label font-weight-bold" for="email">
+                  Email
+                </label>
+                <input type="email" class="col-sm-7 form-control" placeholder="" value="" id="email" name="f_email">
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label font-weight-bold" for="pass">
+                  Password
+                </label>
+                <input type="password" class="col-sm-7 form-control" placeholder="" value="" id="pass" name="f_pass">
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label font-weight-bold" for="repass">
+                  Confirm Password
+                </label>
+                <input type="password" class="col-sm-7 form-control" placeholder="" value="" id="repass" name="f_repass">
+            </div>
+            <div class="form-group row">
+                <input type="submit" class="container text-center btn btn-block btn-primary" style="width: 440px;"
+                value="Signup" id="signup" name="f_signup" disabled="disabled">
+            </div>
+        </form>
+
+        <button id="newCancel_btn" class="container text-center btn btn-block btn-link" style="width: 200px;"
+        onclick="location.href='login.html'">
+          Cancel
+        </button>
+        <p id="errMsg_signup"></p>
+        <p id="okMsg_signup"></p>
+    </main>
+
+    <footer></footer>
+    <script type="text/javascript" src="main.js"></script>
+</body>
+</html>

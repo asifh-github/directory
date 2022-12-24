@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script type="text/javascript" src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="/stylesheets/main.css" />
+    <title>QQapp:Login</title>
+</head>
+<body onload="user_login()">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <a class="navbar-brand" href="/">QuickQook</a>
+        <div class="container-fluid">
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link" href="/">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/favourites">Favourites</a>
+            </li>
+          </ul>
+          <ul class="navbar-nav navbar-right">
+            <li class="nav-item active">
+              <a class="nav-link" href="login.html">Login/Signup</a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+
+    <header class="container-md text-center">
+        <h2>QQ: Account Login</h2>
+    </header>
+
+    <main class="container-md text-center">
+        <form id="loginForm" action="/userLogin" method="post">
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label font-weight-bold" for="uid">
+                  Email
+                </label>
+                <input type="text" class="col-sm-6 form-control" placeholder="" value="" id="uid" name="f_uid">
+              </div>
+              <div class="form-group row">
+                <label class="col-sm-3 col-form-label font-weight-bold" for="upass">
+                  Password
+                </label>
+                <input type="password" class="col-sm-6 form-control" placeholder="" value="" id="upass" name="f_upass">
+              </div>
+              <div class="form-check" style="margin-bottom: 20px;">
+                <input type="checkbox" class="form-check-input" id="isadmin" name="f_isadmin">
+                <label class="form-check-label" for="isadmin">Login as Admin</label>
+              </div>
+              <div class="form-group row">
+                <input type="submit" class="container text-center btn btn-block btn-primary" style="width: 280px;"
+                value="Login" id="login" name="f_login" disabled="disabled">
+              </div>
+        </form>
+
+        <button id="newUser_btn" class="container text-center btn btn-block btn-link" style="width: 200px;"
+        onclick="location.href='signup.html'">
+          Create New Account
+        </button>
+        <p id="errMsg_login"></p>
+        <p id="okMsg_login"></p>
+    </main>
+    
+    <footer></footer>
+    <script type="text/javascript" src="main.js"></script>
+</body>
+</html>

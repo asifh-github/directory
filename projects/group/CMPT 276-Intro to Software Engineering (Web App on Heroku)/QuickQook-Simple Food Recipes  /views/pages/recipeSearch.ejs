@@ -1,0 +1,120 @@
+<!doctype html>
+<head>
+    <%- include ("../partials/header.ejs") %>
+</head>
+<body onload = "getRecipe(document.getElementById('search').value)">
+<%- include ("../partials/nav.ejs") %>
+<header class="container text-center">
+    <h2 class="text-muted">
+        QQ: Search Results
+    </h2>
+</header>
+<input type="text" style="display: none;"  id = "search" value = <%=ingredientsToBeSearched%>>
+<main  class="container-fluid text-center">
+    <div id="output">
+        <%var searchArray = ingredientsToBeSearched.split(",+")%>
+        <%var missingIngs = 0%>
+        <%var valid = false%>
+    
+        <% results.forEach((r)=>{ %>
+            <%missingIngs = -1%>
+            <%valid = false%>
+            <%var rArray = r.postingdlist.split(":")%>
+            <%rArray.forEach((i)=> {%>
+    
+                <%if(searchArray.includes(i)) { %>
+                    <% valid = true %>
+                <%} else {%>
+                    <%missingIngs++;%>
+                <%}%>
+    
+            <%})%>
+            <%if(valid ) {%>
+                <%if(r.validpost == true) {%>
+                    <div class="post_single card">
+                        <div class="post_img">
+                            <img src="/images/<%=r.imgtag%>" class="card-img-top" alt="Image Placeholder">
+                        </div>
+                        <div class="post_info card-body">
+                            <h6 class="card-title"><%= r.postname %></h6>
+                            <h7 class="card-subtitle text-muted">Missing <%= missingIngs%> Ingredients</h7>
+                            <br>
+                            <a href="#" class="btn btn-primary disabled">Like</a>
+
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart-fill" viewBox="0 0 16 16">
+                              <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"/>
+                            </svg>
+                            <i class="bi bi-heart-fill"><%= r.postlikes %></i>
+                            <br>
+                            <div onclick="location.href='/view_post_search/:<%= r.postid %>'" class = "divButton btn btn-outline-dark view">
+                                View Recipe
+                            </div>
+                        </div>
+                    </div>
+                <%}%>
+            <%}%>
+          <% }) %>
+    </div>
+</main>
+<a href="" id = "srcLink"></a>
+</body>
+<script>
+    function getRecipe(q) {
+        $.ajax({
+            url: `https://api.spoonacular.com/recipes/findByIngredients?apiKey=54dd90bd5739482ea6fd71a8c9df0e4e&number=100&ingredients=${q}&limitLicense=true&ignorePantry=true`,
+            success: function(res) {
+                    $.each(res, function(i, recipe) {
+                        for(var x = 0; x < res[i].missedIngredientCount; x++) {
+                        }
+                        if(res[i].missedIngredientCount != -1) {
+                            var newForm = document.createElement("form");
+                            newForm.setAttribute("method", "post");
+                            newForm.setAttribute("action", "/viewRecipe");
+                            newForm.setAttribute("style", "margin:5px");
+                            var newSub = document.createElement("input");
+                            newSub.setAttribute("type", "submit");
+                            newSub.setAttribute("value", "View Recipe");
+                            newSub.setAttribute("class", "btn btn-outline-dark view");
+                            var newDiv = document.createElement("div");
+                            newDiv.setAttribute("class", "post_single card")
+
+                            var newIn = document.createElement("input");
+                            
+
+                            var newImg = document.createElement("input");
+                            var parent = document.getElementById("output");
+
+                            newIn.name = "rId";
+                            newImg.name = "rImg";
+
+                            newDiv.id = "recipe_" + i;
+                            newDiv.innerHTML += 
+                            `<div class="post_img"> 
+                                <img src="${res[i].image}" class="card-img-top" alt="Image Placeholder"> 
+                            </div> 
+                            <div class="post_info card-body"> 
+                                <h6 class="card-title">${res[i].title}</h6>
+                                <h7 class="card-subtitle text-muted">Missing ${res[i].missedIngredientCount} Ingredients</h7>
+                                <p><em>by spoonacular</em></p>
+                            </div>`;
+                            //newDiv.innerHTML += "<br>" + "<br> " + res[i].title +   "<br>Missing " + res[i].missedIngredientCount + " ingredients " + " <br> <img src = '" + res[i].image+"' + width = '300' /> <br>";
+                            parent.appendChild(newDiv);
+                            newIn.value += res[i].id;
+                            newImg.value += res[i].image;
+
+                            newIn.style.display = "none";
+
+                            newImg.style.display = "none";
+
+                            newForm.appendChild(newImg);
+                            newForm.appendChild(newIn);
+                            newForm.appendChild(newSub);
+                            newDiv.appendChild(newForm);
+                        }
+
+                })
+
+            }
+        })
+    }
+</script>

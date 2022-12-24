@@ -1,0 +1,47 @@
+<!doctype html>
+<head>
+    <%- include ("../partials/header.ejs") %>
+</head>
+<body onload = "getInstructions(document.getElementById('search').value)">
+<%- include ("../partials/nav.ejs") %>
+<header class="container text-center">
+    <h1 class="text-muted">Recipe Instructions </h1>
+    <input type="text" readonly  id = "search"  style = "opacity:0%; width:0%" value = <%= recipeId%>>
+    <img src= <%=recipeImg%> id = "recipeImg">
+    <div id = ingredients>
+        <header> Ingredients: </header>
+    </div>
+    <br>
+    <br>
+    <br>
+
+    <div id = "instructions">
+        <header> Instructions: </header>
+    </div>
+</header>
+</body>
+
+<script>
+    apiKey = "326a4047bfc74e5ca364fd9f4b011f1a";
+
+    function getInstructions(q) {
+        $.ajax({
+            url: `https://api.spoonacular.com/recipes/${q}/analyzedInstructions?apiKey=${apiKey}`,
+            success: function(res) {
+                if(res.length != 0) {
+                    console.log(res);
+                    for(var i =0; i<res[0].steps.length; i++) {
+                        for(var j = 0; j<res[0].steps[i].ingredients.length; j++) {
+                            document.getElementById("ingredients").innerHTML += res[0].steps[i].ingredients[j].name + ", ";
+                        }
+                        document.getElementById("ingredients").innerHTML += "";
+                        document.getElementById("instructions").innerHTML += res[0].steps[i].step + "<br>";
+                    }
+                }
+                else {
+                    document.getElementById("ingredients").innerHTML = "Sorry, we were unable to fetch the ingredients and instructions. Please try another recipe.";
+                }   
+            }
+        })
+    }
+</script>

@@ -1,0 +1,30 @@
+<!doctype html>
+<head>
+    <%- include ("../partials/header.ejs") %>
+</head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<link rel="stylesheet" type="text/css" href="/stylesheets/main.css" />
+<body>
+<%- include ("../partials/nav.ejs") %>
+<header class="container text-center">
+    <%var inArr = results[0].postingdlist.split(":")%>
+    <h1 class="text-muted">Recipe Instructions </h1>
+    <h2 class = "text-muted"> <%=results[0].postname%></h2>
+    <div id = ingredients>
+        <header> Ingredients: </header>
+        <%inArr.forEach((i)=> { %>
+            <%=i%>
+        <%})%>
+
+       
+    </div>
+    <br>
+    <br>
+    <br>
+
+    <div id = "instructions">
+        <header> Instructions: </header>
+        <%= results[0].postinfo%>
+    </div>
+</header>
+</body>

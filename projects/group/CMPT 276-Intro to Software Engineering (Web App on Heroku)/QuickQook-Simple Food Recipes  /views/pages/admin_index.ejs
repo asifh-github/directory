@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<head>
+    <title>QuickQook-Admin: Updates</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script type="text/javascript" src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="/stylesheets/main.css" />
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="/admin">QuickQook</a>
+        <div class="container-fluid">
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link" href="/admin_users">Users</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/admin_posts">Posts</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" href="/admin">Updates</a>
+            </li>
+          </ul>
+          <ul class="navbar-nav navbar-right">
+            <li class="nav-item">
+              <button class="nav-link btn btn-outline-light" type="button" onclick="location.href='/logout'">
+                Logout
+              </button>
+            </li> 
+          </ul>
+        </div>
+      </nav>
+
+      <header class="container">
+        <h2 class="text-center text-muted font-weight-light font-italic">
+          QQ: Recent Updates
+        </h2>
+      </header>
+
+      <main class="container-lg text-center">
+        <table class="table table-striped table-hover">
+          <thead>
+          <tr>
+              <th scope="col">Date/Time</th>
+              <th scope="col">Activity</th>
+          </tr>
+          </thead>
+          <tbody>
+          <% likes.forEach(function(r) { %>
+          <tr>
+              <th scope="row"><%= r.time %></th>
+              <td style="text-align: left;">
+                <em>User <%= r.likedby %> liked a post by <%= r.by %></em> | <b>Post ID: <%= r.id %></b>
+              </td>
+          </tr>
+          <% }); %>
+          </tbody>
+      </table>
+      </main>
+
+    <footer></footer>
+</body>
+</html>

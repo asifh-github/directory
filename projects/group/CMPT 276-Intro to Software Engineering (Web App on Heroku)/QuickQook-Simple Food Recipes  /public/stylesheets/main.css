@@ -1,0 +1,114 @@
+h1 {
+  margin: 15px;
+}
+sub {
+  font-weight: lighter;
+  font-size: medium;
+}
+h2 {
+  font-weight: lighter;
+  margin: 25px;
+}
+label {
+  font-style: italic;
+}
+input::placeholder {
+  text-align: right;
+  font-style: italic;
+}
+textarea::placeholder {
+  text-align: right;
+  font-style: italic;
+}
+.post_single {
+  background: whitesmoke;
+  margin-right: 10px;
+  margin-left: 10px;
+  margin-bottom: 20px;
+  float: left;
+  width: 440px;
+  height: 460px;
+  display: block;
+}
+.post_single:hover {
+  height: 580px;
+  overflow: hidden;
+}
+.post_single:hover .post_info_info {
+  display: block;
+  overflow: hidden;
+  margin-bottom: 5px;
+}
+.post_img {
+  height: 300px;
+  background: gold;
+}
+.post_img img {
+  width: 440px;
+  height: 300px;
+}
+.post_info {
+  padding: 5px;
+}
+.post_info h6 {
+  margin-bottom: 0px;
+  font-size: larger;
+  font-family: serif;
+}
+.post_info h7 {
+  font-size: medium;
+}
+.post_info a {
+  width: 100px;
+  margin-right: 160px;
+  margin-top: 10px;
+  margin-bottom: 15px;
+}
+.post_info svg {
+  margin-right: 1px;
+  font-size: large;
+}
+.post_info_ingd {
+  margin-bottom: 8px;
+  font-size: medium;
+}
+.post_info_info {
+  display: none;
+  font-size: small;
+  margin-bottom: 5px;
+}
+.view {
+  display: inline-block;
+}
+#edit {
+  float: left;
+  margin-bottom: 25px
+}
+#close {
+  float: right;
+  margin-bottom: 25px
+}
+#img1 {
+  clear: both;
+  margin-block: 25px;
+  padding: 0px;
+  background: gold;
+  height: 440px;
+  width: 480px;
+}
+#img1 img {
+  height: 440px;
+  width: 480px;
+}
+#info1 {
+  text-align: left;
+}
+#ingdl {
+  width: 500px;
+}
+#like {
+  width: 500px;
+  margin-block: 20px;
+}
+
+

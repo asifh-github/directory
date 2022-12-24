@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <%- include ("../partials/header.ejs") %>
+</head>
+
+<body>
+
+  <%- include ("../partials/nav.ejs") %>
+
+  <header class="container text-center">
+    <h1 class="text-muted">QuickQook <sub>powered by spoonacular.</sub> </h1>
+    <p><em>"A quick but hearty solution to satisfy your hunger"</em></p>
+  </header>
+
+  <main>
+    <form id="searchForm" action="/searchRecipe" method="post"
+        class="container text-center" onsubmit = "return checkMin()">
+        <div id = "searchFormElements">
+          <input type="text" readonly id="numOfIng" name="numOfIng" value = "3" style="opacity: 0%;">
+          <div class="form-group row">
+            <label class="col-sm-3 col-form-label font-weight-bold" for="ingd1">
+              Ingredients
+            </label>
+            <input type="text" class="col-sm-8 form-control" placeholder="Example: rice" 
+            value="" id="ingd1" name="f_ingd">
+          </div>
+      </div>
+      <div id= "searchIngredients">
+        Searching for Recipes with:
+      </div>
+      <input type = "text" value = "" id = "apiList" name = "apiList" style="opacity:0%;" style = "height:0%" readonly>
+
+    </input>
+        <div class="form-group row">
+          <button id="addIngd_btn" type = "button" class="container text-center btn btn-block btn-link" style="width: 200px;"
+          onclick="add_ingd()">
+            Add Ingredient
+          </button>
+          <button id="clearIngd_btn" type = "button" class="container text-center btn btn-block btn-link" style="width: 200px;"
+          onclick="clearIngd()">
+            Clear Ingredients
+          </button>
+        </div>
+        <div class="form-group row">
+          <input type="submit" class="container text-center btn btn-block btn-primary" style="width: 780px;"
+          value="Search" id="search" name="f_search">
+        </div>
+    </form>
+  </main>
+
+  <footer></footer>
+
+</body>
+<script type = "text/javascript" src = "./addIngredient.js" ></script>
+</html>

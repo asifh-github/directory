@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<head>
+    <title>QuickQook-View Posts</title>
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script type="text/javascript" src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="/stylesheets/main.css" />
+</head>
+<%if(post.validpost == true) {%>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <a class="navbar-brand" href="/profile">QuickQook</a>
+      <div class="container-fluid">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link" href="/profile">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/posts">Posts</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/liked">Liked</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" href="/favourites">Favourites</a>
+          </li>
+        </ul>
+        <ul class="navbar-nav navbar-right">
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <%= post.ufname %> 
+              <%= post.ulname %>
+            </a>
+            
+            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+              <a class="dropdown-item" href="/profile_update">Update</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="/logout">Logout</a>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </nav>
+    <header class="container-md text-center">
+        <h2>QQ: Post Info</h2>
+    </header>
+    <main class="container-md text-center">
+        <div id="btn1">
+            <button id="edit" name="post_edit" class="btn btn-outline-info" style="width: 100px;"
+            onclick="location.href='/post_update/:<%= post.postid %>'">
+                Edit
+            </button>
+            <button id="close" name="post_close" class="btn btn-outline-dark" style="width: 150px;"
+            onclick="location.href='/search'">
+                Close
+            </button>
+        </div>
+        <div id="img1" class="container text-center rounded-circle">
+            <img src="/images/<%= post.imgtag %>" class="rounded-circle" alt="">
+        </div>
+        <div id="like1" class="container text-center">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart-fill" viewBox="0 0 16 16">
+              <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"/>
+            </svg>
+            <i class="bi bi-heart-fill"><%= post.postlikes %></i>
+        </div>
+        <div id="info1">
+            <h5><%= post.postname %></h5>
+            <h7>by <%= post.fname %> <%= post.lname %></h7>
+            <h6 id="ctime" class="text-muted"><%= post.postctime %></h6>
+            <p><em>Number of ingredients: <%= post.postingd %></em></p>
+            <b>Ingredients</b>
+            <ul id="ingdl" class="list-group list-group-flush">
+                <%= post.postingdlist %>
+            </ul>
+            <b>Description</b> 
+            <p id="info"><%= post.postinfo %></p>
+        </div>
+
+      <form id="likeForm" action="/likeUnlike_search" method="post">
+        <input type="submit" id="like" name="post_like" value="">
+        <input type="text" id="pid" name="f_pid" value="<%= post.postid %>" readonly="readonly" style="display: none">
+        <input type="text" id="pby" name="f_pby" value="<%= post.postby %>" readonly="readonly" style="display: none">
+        <input type="text" id="pemail" name="f_pemail" value="<%= post.uemail %>" readonly="readonly" style="display: none">
+        <input type="number" id="plikes" name="f_plikes" value="<%= post.postlikes %>" readonly="readonly" style="display: none">
+        <input type="text" id="plikedby" name="f_plikedby" value="<%= post.likedby %>" readonly="readonly" style="display: none">
+      </form>
+    </main>
+    <footer></footer>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
+    <script>
+        var imgtag = document.getElementById('img1');
+        console.log(imgtag);
+        var posyby = document.getElementById('pby').value;
+        var uemail = document.getElementById('pemail').value;
+        var likedby = document.getElementById('plikedby').value;
+        if(posyby !== uemail) {
+            var edit = document.getElementById('edit');
+            edit.setAttribute('style', 'display:none');
+        }
+        console.log(likedby.length);
+        if(likedby.length !== 0) {
+            var like = document.getElementById('like'); 
+            like.value = 'Unlike';
+            like.className = 'btn btn-outline-primary';
+        }
+        else if(likedby.length === 0) {
+            var like = document.getElementById('like'); 
+            like.value = 'Like';
+            like.className = 'btn btn-primary';
+        }
+        var ctimeArr = ['NA', 'Less Than 10 mins', '10-15 mins', '15-20 mins', '20-25 mins', '25-30 mins', '30-35 mins', '35-40 mins', '40-45 mins', '45-50 mins', '50-55 mins', '55-60 mins', '60+ mins'];
+        var ctime = document.getElementById('ctime');
+        console.log(ctime);
+        var index = parseInt(ctime.innerHTML);
+        ctime.innerHTML = 'Cook Time: ' + ctimeArr[index];
+        var ingdl = document.getElementById('ingdl');
+        console.log(ingdl);
+        var list = ingdl.innerHTML.split(':');
+        ingdl.innerHTML = "";
+        for(var i=0; i<list.length-1; i++) {
+            ingdl.innerHTML += `<li class="list-group-item"><em>${i+1}.</em> ${list[i]}</li>`;
+        }
+
+    </script>
+</body>
+<%} else {%>
+  <body>
+    
+    <div>
+      You are trying to access a restricted post.
+    </div>
+  </body>
+<%}%>
+</html>

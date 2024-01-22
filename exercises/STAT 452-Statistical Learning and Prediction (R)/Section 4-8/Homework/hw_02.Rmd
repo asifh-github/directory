@@ -1,0 +1,283 @@
+---
+title: "Homework 2"
+author: "Asif Hasan - 301376671"
+date: "2023-10-31"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# 1. Problem Set 7, Applications
+```{r}
+library(MASS) # for ridge
+library(glmnet) # for LASSO
+# get the data 
+air.data <- airquality
+air.data2 <- na.omit(air.data[, 1:4])
+air.data2$TWcp = air.data2$Temp*air.data2$Wind
+air.data2$TWrat = air.data2$Temp/air.data2$Wind
+```
+
+## 1(a). 
+```{r}
+# fit a ridge regression
+ridge <- lm.ridge(Ozone ~ ., lambda = seq(0, 100, .05), data = air.data2)
+which.min(ridge$GCV)
+(coef.ri.best <- coef(ridge)[which.min(ridge$GCV), ])
+```
+
+## 1(b). 
+```{r}
+# fit a least squares regression
+ls <- lm(Ozone ~ ., data = air.data2)
+ls
+```
+
+The magnitude of coefficient estimates of all parameters (including the intercept) except 'TWrat' is smaller in ridge regression compared to least squares regression.
+
+
+## 2(a). 
+```{r}
+# fit lasso
+lasso <- cv.glmnet(y = as.matrix(air.data2[, 1]), x = as.matrix(air.data2[, c(2:6)]), family = "gaussian")
+# lambda min
+lasso$lambda.min
+# lambda 1se
+lasso$lambda.1se
+```
+
+## 2(b). 
+```{r}
+# get the coefficient estimates
+coef(lasso, s = lasso$lambda.min) # lambda min
+coef(lasso, s = lasso$lambda.1se) # lambda 1se
+```
+
+For the Lambda-min value, all parameters have non-zero coefficient estimates. Conversely, when using the Lambda-1SE value, three parameters have coefficient estimates equal to zero. Additionally, for Lambda-1SE, the intercept and 'Temp' have smaller magnitudes, while 'TWrat' has a larger magnitude compared to Lambda-min.
+
+## 2(c). 
+```{r}
+# fit step-wise regression
+initial <- lm(
+  data = air.data2,
+  formula = Ozone ~ 1
+)
+final <- lm(
+  data = air.data2,
+  formula = Ozone ~ .
+)
+
+step <- step(
+  object = initial, scope = list(upper = final),
+  k = log(nrow(air.data2))
+)
+summary(step)
+```
+
+For Lambda-min value using LASSO, all five explanatory variables ('Solar.R', 'Wind', 'Temp', 'TWcp', and 'TWrat') are selected. For Lambda-1SE value using LASSO, only 'Temp' and 'TWrat' are selected. Using hybrid stepwise regression, 'Solar.R', 'Temp', and 'TWrat' are selected.
+
+
+## 3(a)
+```{r}
+set.seed(2928893)
+```
+
+## 3(b)
+```{r}
+# set number of folds
+V <- 10 
+# sample the folds
+n = nrow(air.data2)
+folds <- floor((sample.int(n) - 1) * V / n) + 1
+```
+
+## 3(c)
+```{r}
+## including ls and step for part e
+# create matrix for MSPEs for 5 models
+MSPEs.cv <- matrix(NA, nrow = V, ncol = 5)
+colnames(MSPEs.cv) <- c("LS", "Step", "Ridge", "LASSO-min", "LASSO-1SE")
+# run cross-validation in for-loop
+for (v in 1:V) {
+  
+  # fit 5 models on fold == !v
+  model.ls.cv <- lm(Ozone ~ ., data=air.data2[folds!=v, ])
+  model.step.cv <- step <- step(
+    object = lm(data=air.data2[folds!=v, ], formula = Ozone ~ 1), 
+    scope = list(upper = lm(data=air.data2[folds!=v, ], formula = Ozone ~ .)),
+    k = log(nrow(air.data2[folds!=v, ]))
+    )
+  model.ridge.cv <- lm.ridge(Ozone ~ ., lambda=seq(0, 100, .05), air.data2[folds!=v, ])
+  model.lasso.cv <- cv.glmnet(
+    y = as.matrix(air.data2[folds!=v, 1]), 
+    x = as.matrix(air.data2[folds!=v, c(2:6)]), 
+    family = "gaussian"
+    )
+  
+  # predict Ozone using the fitted models on fold == v
+  pred.ls.cv <- predict(model.ls.cv, newdata=air.data2[folds==v, ])
+  pred.step.cv <- predict(model.step.cv, newdata=air.data2[folds==v, ])
+  pred.ridge.cv <- as.matrix(cbind(1, air.data2[folds==v, 2:6])) %*% 
+    coef(model.ridge.cv)[which.min(model.ridge.cv$GCV), ]
+  pred.lasso.min.cv <- predict(model.lasso.cv, newx=as.matrix(air.data2[folds==v, c(2:6)]), 
+                               s=model.lasso.cv$lambda.min)
+  pred.lasso.1se.cv <- predict(model.lasso.cv, newx=as.matrix(air.data2[folds==v, c(2:6)]), 
+                               s=model.lasso.cv$lambda.1se)
+  
+  # calculated MSPEs for 5 models for each v fold
+  MSPEs.cv[v, 1] <- mean((air.data2[folds==v, "Ozone"] - pred.ls.cv)^2)
+  MSPEs.cv[v, 2] <- mean((air.data2[folds==v, "Ozone"] - pred.step.cv)^2)
+  MSPEs.cv[v, 3] <- mean((air.data2[folds==v, "Ozone"] - pred.ridge.cv)^2)
+  MSPEs.cv[v, 4] <- mean((air.data2[folds==v, "Ozone"] - pred.lasso.min.cv)^2)
+  MSPEs.cv[v, 5] <- mean((air.data2[folds==v, "Ozone"] - pred.lasso.1se.cv)^2)
+}
+```
+
+## 3(d)
+```{r}
+# get the MSPEs for each 10 folds
+MSPEs.cv[, 3:5]
+# get the mean MSPEs
+MSPEcv <- apply(X = MSPEs.cv, MARGIN = 2, FUN = mean)
+MSPEcv[3:5]
+```
+
+## 3(e)
+```{r}
+# create boxplots for MSPEs
+boxplot(MSPEs.cv, main = "MSPE \n Cross-Validation")
+```
+
+LS (Least Squares) and Ridge perform the best, LASSO-1SE performs the worst, and Stepwise Regression (Step) and LASSO-min are worse than LS and Ridge.
+
+## 3(f)
+```{r}
+# create boxplots for relative MSPEs
+low.cv <- apply(MSPEs.cv, 1, min)
+boxplot(MSPEs.cv / low.cv,
+        las = 2,
+        main = "Relative MSPE \n Cross-Validation"
+)
+
+```
+
+
+# 2. Problem Set 8, Applications (OZONE DATA)
+```{r}
+library(pls)
+# create matrix for number of optimal PCs
+opt.pc.cv <- matrix(NA, nrow = V, ncol = 1)
+colnames(opt.pc.cv) <- c("optimal number of PCs")
+# create matrix for MSPEs for pls
+MSPEs.pls.cv <- matrix(NA, nrow = V, ncol = 1)
+colnames(MSPEs.pls.cv) <- c("PLS")
+# run cross-validation in for-loop
+for(v in 1:V) {
+  # fit pls 
+  model.pls <- plsr(Ozone ~ ., data=air.data2[folds!=v, ], ncomp=5, validation="CV")
+  CVpls <- model.pls$validation
+  pls.comps <- CVpls$PRESS
+  
+  # get the lowest RMSEP
+  opt.comps <- which.min(pls.comps)
+  opt.pc.cv[v] <- opt.comps
+  
+  ## 1(c)
+  # predict Ozone using the fitted models and number of components on fold == v
+  pred.pls <- predict(model.pls, n_comp=opt.comps,newdata=air.data2[folds==v, ])
+  
+  # calculated MSPEs for each v fold
+  MSPEs.pls.cv[v] <- mean((air.data2[folds==v, "Ozone"] - pred.pls)^2)
+}
+```
+
+## 1(a)
+```{r}
+# get the number of optimal PCs in each folds
+opt.pc.cv
+```
+
+## 1(c)
+```{r}
+# get the MSPEs for each 10 folds
+MSPEs.pls.cv
+# get the mean MSPEs
+(MSPEpls <- apply(X = MSPEs.pls.cv, MARGIN = 2, FUN = mean))
+```
+
+## 1(d)
+```{r}
+# create boxplots for MSPEs
+boxplot(cbind(MSPEs.pls.cv, MSPEs.cv), main = "MSPE \n Cross-Validation")
+```
+
+PLS has the highest MSPE among all the models; however, it exhibits lower variability than LASSO-1SE.
+
+## 1(e)
+```{r}
+# create boxplots for relative MSPEs
+low.cv <- apply(cbind(MSPEs.pls.cv, MSPEs.cv), 1, min)
+boxplot(cbind(MSPEs.pls.cv, MSPEs.cv) / low.cv,
+        las = 2,
+        main = "Relative MSPE \n Cross-Validation"
+)
+```
+
+
+# 3. Problem Set 9, Concepts
+## 1(a)
+β_0 represents the "baseline" or the first region/interval of X, and it measures the mean value of Y in the first region/interval of X.
+
+## 1(b)
+β_K represents the last region/interval of X, and it measures the mean value of Y in the last region/interval of X relative to the baseline B_0. β_K quantifies the difference in the mean value of Y when the last region represented by C_k(X) is considered, compared to the first region, which serves as the baseline (where all other indicator variables are zero).
+
+# 4. Problem Set 10, Applications
+## 1(a)
+```{r}
+library(splines)
+plot(
+  x = air.data2$Temp, y = air.data2$Ozone, type = "l", col = "gray",
+  main = "Plot of Ozone vs. Temp"
+)
+legend(
+    "topleft", legend = c(
+    "Cubic Regression", "Cubic Spline 5 df",
+    "Cubic Spline 7 df", "Cubic Spline, 9 df",
+    "Cubic Spline, 20 df"),
+  lty = "solid", col = colors()[c(24, 121, 145, 84, 55)], 
+  lwd = 2, cex=0.8
+)
+# add cubic polynomial to plot (3 df model)
+poly3 <- lm(data = air.data2, Ozone ~ poly(x=Temp, degree = 3))
+lines(x = air.data2$Temp, y = predict(poly3, newdata = air.data2), col = colors()[24], lwd = 2)
+# 5 DF spline
+cub.spl.5 <- lm(data = air.data2, Ozone ~ bs(Temp, df = 5))
+lines(x = air.data2$Temp, y = predict(cub.spl.5, newdata = air.data2), 
+      col = colors()[121], lwd = 2)
+# 7 DF spline
+cub.spl.7 <- lm(data = air.data2, Ozone ~ bs(Temp, df = 7))
+lines(x = air.data2$Temp, y = predict(cub.spl.7, newdata = air.data2), 
+      col = colors()[145], lwd = 2)
+# 9 DF spline
+cub.spl.9 <- lm(data = air.data2, Ozone ~ bs(Temp, df = 9))
+lines(x = air.data2$Temp, y = predict(cub.spl.9, newdata = air.data2), 
+      col = colors()[84], lwd = 2)
+# 20 DF spline
+cub.spl.20 <- lm(data = air.data2, Ozone ~ bs(Temp, df = 20))
+lines(x = air.data2$Temp, y = predict(cub.spl.20, newdata = air.data2), 
+      col = colors()[55], lwd = 2)
+```
+
+## 1(b)
+Cubic Regression
+
+## 1(c)
+Functions with higher degrees of freedom, e.g., cubic splines with 20 DF, have a tendency to overfit. Overfitting can be observed when the curve fits the data points very closely, showing a lot of variability.
+
+## 1(d)
+Cubic splines with 7 DF because it strikes a balance between capturing the underlying trend in the data while avoiding excessive overfitting.
+
+
+

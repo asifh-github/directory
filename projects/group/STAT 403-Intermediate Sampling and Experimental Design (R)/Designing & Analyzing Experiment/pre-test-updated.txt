@@ -1,0 +1,25 @@
+﻿greenhouse,humidity,pot,plant1 ,plant2
+1,h,1,B52,B52
+1,h,2,B52,B52
+1,h,3,NL,NL
+1,h,4,NL,NL
+2,h,5,B52,B52
+2,h,6,B52,B52
+2,h,7,NL,NL
+2,h,8,NL,NL
+3,h,9,B52,B52
+3,h,10,B52,B52
+3,h,11,NL,NL
+3,h,12,NL,NL
+4,l,13,B52,B52
+4,l,14,B52,B52
+4,l,15,NL,NL
+4,l,16,NL,NL
+5,l,17,B52,B52
+5,l,18,B52,B52
+5,l,19,NL,NL
+5,l,20,NL,NL
+6,l,21,B52,B52
+6,l,22,B52,B52
+6,l,23,NL,NL
+6,l,24,NL,NL

@@ -1,0 +1,246 @@
+---
+title: "Homework 3"
+author: "Asif Hasan - 301376671"
+date: "2023-11-17"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# 1. Problem Set 13, Applications
+```{r}
+library(FNN)
+```
+## 1(a). 
+```{r}
+# read the data 
+vehicle <- read.csv("vehicle.csv")
+# print summary
+summary(vehicle)
+```
+
+## 1(b). 
+```{r}
+# convert class to factor
+vehicle$class <- factor(vehicle$class, labels=c("2D", "4D", "Bus", "Van"))
+# print summary
+summary(vehicle)
+```
+
+## 1(c). 
+```{r}
+corMatrix <- cor(vehicle[, -19])
+corMatrix
+```
+
+Variables with correlations between $\pm$ 0.7 and $\pm$ 0.9: 
+
+* Compactness and Circularity is correlated with Distance.Circularity, Scatter.Ratio, Elongatedness, Pr.Axis.Rectangularity, Scaled.Variance.Along.Major.Axis, and Scaled.Variance.Along.Minor.Axis.
+* Distance.Circularity is correlated with Radius.Ratio, Pr.Axis.Rectangularity, Max.Length.Rectangularity, Scaled.Variance.Along.Major.Axis, Scaled.Variance.Along.Minor.Axis, and Scaled.Radius.of.Gyration.
+* Radius.Ratio is correlated with Scatter.Ratio, Elongatedness, Pr.Axis.Rectangularity, Scaled.Variance.Along.Major.Axis, and Scaled.Variance.Along.Minor.Axis.
+* Scatter.Ratio, Elongatedness, and Pr.Axis.Rectangularity is correlated with Max.Length.Rectangularity and Scaled.Radius.of.Gyration.
+* Max.Length.Rectangularity, Scaled.Variance.Along.Major.Axis, Scaled.Variance.Along.Minor.Axis, and Scaled.Radius.of.Gyration are correlated with each other.
+* Skewness.About.Major.Axis, Kurtosis.About.Major.Axis and Hollows.Ratio are correlated with each other.
+
+Variables with correlations greater than $\pm$ 0.9:
+
+* Circularity is highly correlated with Max.Length.Rectangularity, and Scaled.Radius.of.Gyration.
+* Distance.Circularity is highly correlated with Scatter.Ratio and Elongatedness.
+* Scatter.Ratio, Elongatedness, Pr.Axis.Rectangularity, Scaled.Variance.Along.Major.Axis, and Scaled.Variance.Along.Minor.Axis are highly correlated with each other.
+
+## 2. 
+```{r}
+# sample the data into train and test sets
+set.seed(46685326, kind="Mersenne-Twister")
+perm <- sample(x=nrow(vehicle))
+# print set 1
+set1 <- vehicle[which(perm <= 3*nrow(vehicle)/4), ]
+head(set1, n = 6)
+# print set 2
+set2 <- vehicle[which(perm > 3*nrow(vehicle)/4), ]
+head(set2, n = 6)
+```
+
+## 3(a). 
+```{r}
+# scale the X variables using mean and sd from training set 
+scale.1 <- function(x1, x2) {
+  for (col in 1:ncol(x1)) {
+    a <- mean(x2[, col])
+    b <- sd(x2[, col])
+    x1[, col] <- (x1[, col] - a) / b
+  }
+  x1
+}
+x.set1.unscaled <- as.matrix(set1[, -19])
+x.set2.unscaled <- as.matrix(set2[, -19])
+x.set1 <- scale.1(x.set1.unscaled, x.set1.unscaled)
+x.set2 <- scale.1(x.set2.unscaled, x.set1.unscaled)
+# fit a knn using m/k= 1
+model.knn <- knn(train = x.set1, test = x.set2, cl=set1[, 19], k=1)
+# create confusion matrix 
+table(model.knn, set2[, 19], dnn = c("Predicted", "Observed"))
+```
+
+There is a high misclassification rate between classes "2D" and "4D" which indicates that these two classes are harder to separate as these two classes overlap each other. Class "Bus" has the lowest misclassifications which indicates that this class is easier to separate from other classes; however, there is a small overlap with class "Van". We also see a small number misclassificatios in class "Van" which indicates that this class is also easier to separate from other classes; however, there is a small overlap with classes "2D" and "4D".
+
+## 3(b).
+```{r}
+# calculate misclassification rate 
+(misclass.model.knn <-
+    mean(ifelse(model.knn == set2[, 19], yes = 0, no = 1)))
+# calculate aprox. se of misclassification 
+(se <- sqrt(misclass.model.knn * (1 - misclass.model.knn) / nrow(set2)))
+```
+
+
+# 2. Problem Set 14, Applications 
+```{r}
+library(nnet)
+library(car)
+library(glmnet)
+library(MASS)
+```
+## 1(a).
+```{r}
+# scale the values in training set between 0 and 1 
+rescale <- function(x1, x2) {
+  for (col in 1:ncol(x1)) {
+    a <- min(x2[, col])
+    b <- max(x2[, col])
+    x1[, col] <- (x1[, col] - a) / (b - a)
+  }
+  x1
+}
+set1.rescale <- data.frame(cbind(rescale(set1[, -19], set1[, -19]), 
+                                  class = set1$class))
+set2.rescale <- data.frame(cbind(rescale(set2[, -19], set1[, -19]), 
+                                 class = set2$class))
+#summary(set1.rescale)
+#summary(set2.rescale)
+```
+
+```{r}
+summary(set1.rescale)[, 1:3]
+summary(set2.rescale)[, 1:3]
+```
+
+## 1(b)
+### i.
+```{r}
+# fit logistic regression 
+mod.logit <- multinom(
+  data = set1.rescale, formula = class ~ .,
+  trace = TRUE
+)
+#summary(mod.logit)
+# run anova on the model
+Anova(mod.logit)
+```
+
+Considering a significance level of $\alpha \leq 0.05$ as being significantly important, the predictors Compactness, Circularity, Distance.Circularity, Radius.Ratio, Pr.Axis.Aspect.Ratio, Max.Length.Aspect.Ratio, Pr.Axis.Rectangularity, Max.Length.Rectangularity, Scaled.Variance.Along.Major.Axis, Scaled.Radius.of.Gyration, Skewness.About.Major.Axis, Skewness.About.Minor.Axis, Kurtosis.About.Minor.Axis, Kurtosis.About.Major.Axis, and Hollows.Ratio appear to be important. On the other hand, Scatter.Ratio, Elongatedness, and Scaled.Variance.Along.Minor.Axis seem to be deemed unimportant.                    
+
+### ii.
+```{r}
+# compute train and test error
+pred.class.1 <- predict(mod.logit,
+                        newdata = set1.rescale,
+                        type = "class")
+(mul.misclass.train <- mean(ifelse(pred.class.1 == set1$class,
+                                   yes = 0, no = 1))
+)
+pred.class.2 <- predict(mod.logit,
+                        newdata = set2.rescale,
+                        type = "class")
+(mul.misclass.test <- mean(ifelse(pred.class.2 == set2$class,
+                                  yes = 0, no = 1))
+)
+# compute se for test set
+(se.logit <- sqrt(mul.misclass.test * (1 - mul.misclass.test) / nrow(set2)))
+```
+
+The test error for logistic regression using 'multinom()' is lower than that of the optimal KNN, suggesting that logistic regression performs better in making predictions for this case.
+
+### iii.
+```{r}
+# create confusion matrix
+table(set2$class, pred.class.2, dnn = c("Obs", "Pred"))
+```
+
+The confusion matrix shows that there is a high misclassification rate in classes '2D' and '4D' and it seems hard to seperate these two classes from each other as we see that 19 cases (out of total 55) of class '2D' are misclassified as class '4D' and 18 cases (out of total 54) of class '4D' are misclassified as class '2D'. On the other hand, classes 'Bus' and 'Van' have a very low miscalssification rate where we see only two misclassifed cases (out of total 49) for class 'Bus' and only one miscalssified case (out of total 54) for "Van'.
+
+## 2(a).
+```{r}
+# fit lasso
+model.logit.lasso <- cv.glmnet(
+  x = as.matrix(set1.rescale[, 1:18]),
+  y = set1.rescale[, 19], family = "multinomial"
+)
+#model.logit.lasso
+#plot(model.logit.lasso)
+# find nonzero lasso coefficients
+c <- coef(model.logit.lasso, s = model.logit.lasso$lambda.min)
+cmat <- cbind(
+  as.matrix(c[[1]]), as.matrix(c[[2]]),
+  as.matrix(c[[3]]), as.matrix(c[[4]])
+)
+cmat != 0
+```
+
+The pattern is somewhat similar to ANOVA, because the variables that consistently appear in all four logistic regression models with LASSO are the same variables identified as important in ANOVA; and the only exception is the variable 'Elongatedness,' which, while deemed unimportant in ANOVA, appears to influence all four logistic regression models in the LASSO.
+
+## 2(b).
+```{r}
+# compute train and test error
+lasso.pred.train <- predict(
+  object = model.logit.lasso, type = "class",
+  s = model.logit.lasso$lambda.min,
+  newx = as.matrix(set1.rescale[, 1:18])
+)
+(lassomisclass.train <-
+    mean(ifelse(lasso.pred.train == set1$class, yes = 0, no = 1)))
+lasso.pred.test <- predict(model.logit.lasso,
+                           type = "class",
+                           s = model.logit.lasso$lambda.min,
+                           newx = as.matrix(set2.rescale[, 1:18])
+)
+(lassomisclass.test <-
+    mean(ifelse(lasso.pred.test == set2$class, yes = 0, no = 1)))
+# compute standard error for test set
+(se.lasso <- sqrt(lassomisclass.test * (1 - lassomisclass.test) / nrow(set2)))
+```
+
+The test error for the LASSO version of logistic regression closely mirrors the test error observed in logistic regression using 'multinom()'. Therefore, the LASSO version of logistic regression outperforms KNN in terms of predictive accuracy, although its performance is comparable to logistic regression using 'multinom()'.
+
+## 3(a).
+```{r}
+# fit lda
+model.lda <- lda(x = set1[, -19], grouping = set1$class)
+# plot results
+class.col <- ifelse(set1$class=="2D", y = 53, n =
+                      ifelse(set1$class=="4D", y = 68, n = 
+                               ifelse(set1$class=="Bus", y = 203, n = 464)))
+plot(model.lda, col = colors()[class.col])
+```
+
+LD1 seems to mostly separate classes 'Bus' and 'Van'.
+
+LD2 seems to mostly seperate classes 'Bus' and '4D'.
+
+LD3 seems to mostly separate classes 'Van' and '2D'.
+
+## 3(b).
+```{r}
+# compute train and test error
+lda.pred.train <- predict(model.lda, newdata = set1[, -19])$class
+(ldamisclass.train <- mean(ifelse(lda.pred.train == set1$class, yes = 0, no = 1)))
+lda.pred.test <- predict(model.lda, newdata = set2[, -19])$class
+(ldamisclass.test <- mean(ifelse(lda.pred.test == set2$class, yes = 0, no = 1)))
+# compute se for test set
+(se.lda <- sqrt(ldamisclass.test * (1 - ldamisclass.test) / nrow(set2)))
+```
+
+The test error for Linear Discriminant Analysis (LDA) is the lowest among all the models, suggesting that LDA outperforms KNN, logistic regression using 'multinom()', and the LASSO version of logistic regression in terms of predictive accuracy.
+

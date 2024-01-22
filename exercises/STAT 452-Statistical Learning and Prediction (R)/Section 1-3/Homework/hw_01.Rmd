@@ -1,0 +1,214 @@
+---
+title: "Homework 1"
+author: "Asif Hasan - 301376671"
+date: "2023-09-22"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# 1.
+Yes, I have read and acknowledge the SFU Student Academic Integrity Policy.
+
+
+# 2. Problem Set 3, Question 2
+## a(i). 
+We would expect to see lower bias in the linear model compared to Figure 6 because the true model has less curvature than in Figure 6.
+
+## a(ii).
+We would expect to see higher variance in the linear model compared to Figure 6 if we used the same sample given in Figure 6.
+
+## b.
+As we increase the sample size in this situation, we expect only the variance to get smaller.
+
+
+# 3. Problem Set 4, Application
+## Question 1
+```{r}
+# get the data
+air.data <- airquality
+head(air.data)
+# get the dimensions
+dim(air.data)
+# remove NA
+air.data2 <- na.omit(airquality[ ,1:4])
+dim(air.data2)
+```
+We got rid of 42 rows of data with missing values and 2 columns that we will not be using for fitting regression models.
+
+## Question 2
+```{r}
+set.seed(4099183)
+# get number of rows
+n <- nrow(air.data2)
+# set sampling fraction
+sf <- 0.75
+# generate sample
+reorder <- sample.int(n)
+set <- ifelse(test = (reorder < sf * n), yes = 1, no=2)
+# show observations in the validation set
+air.data2[set==2, ]
+```
+
+## Question 3
+```{r}
+# fit 5 models on the train set 
+model.solar <- lm(Ozone ~ Solar.R, data=air.data2[set==1, ])
+model.wind <- lm(Ozone ~ Wind, data=air.data2[set==1, ])
+model.temp <- lm(Ozone ~ Temp, data=air.data2[set==1, ])
+model.all <- lm(Ozone ~ ., data=air.data2[set==1, ])
+model.comp <- lm(Ozone ~ Temp+Wind+Solar.R+I(Temp^2)+I(Wind^2)+I(Solar.R^2)
+                 +Temp*Wind+Temp*Solar.R+Wind*Solar.R, data=air.data2[set==1, ])
+# predict Ozone using the fitted models on validation set
+pred.solar <- predict(model.solar, newdata=air.data2[set==2, ])
+pred.wind <- predict(model.wind, newdata=air.data2[set==2, ])
+pred.temp <- predict(model.temp, newdata=air.data2[set==2, ])
+pred.all <- predict(model.all, newdata=air.data2[set==2, ])
+pred.comp <- predict(model.comp, newdata=air.data2[set==2, ])
+```
+```{r}
+# calculate MSPE for the 5 models
+(MSPE.solar <- mean((air.data2[set==2, "Ozone"] - pred.solar)^2))
+(MSPE.wind <- mean((air.data2[set==2, "Ozone"] - pred.wind)^2))
+(MSPE.temp <- mean((air.data2[set==2, "Ozone"] - pred.temp)^2))
+(MSPE.all <- mean((air.data2[set==2, "Ozone"] - pred.all)^2))
+(MSPE.comp <- mean((air.data2[set == 2, "Ozone"] - pred.comp)^2))
+```
+
+### a.
+The model with all variables denoted as 'model.all' with the formula = Temp + Wind + Solar.R is the best model out the the five fitted models.
+
+## Question 4
+```{r}
+# set number of folds
+V <- 5 
+# sample the folds
+folds <- floor((sample.int(n) - 1) * V / n) + 1
+# create matrix for MSPEs for 5 models
+MSPEs.cv <- matrix(NA, nrow = V, ncol = 5)
+colnames(MSPEs.cv) <- c("solar-c", "wind-c", "temp-c", "all-c", "comp-c")
+# run cross-validation in for-loop
+for (v in 1:V) {
+  # fit 5 models on fold == !v
+  model.solar.cv <- lm(Ozone ~ Solar.R, data=air.data2[folds!=v, ])
+  model.wind.cv <- lm(Ozone ~ Wind, data=air.data2[folds!=v, ])
+  model.temp.cv <- lm(Ozone ~ Temp, data=air.data2[folds!=v, ])
+  model.all.cv <- lm(Ozone ~ ., data=air.data2[folds!=v, ])
+  model.comp.cv <- lm(Ozone ~ Temp+Wind+Solar.R+I(Temp^2)+I(Wind^2)+I(Solar.R^2)
+                   +Temp*Wind+Temp*Solar.R+Wind*Solar.R, data=air.data2[folds!=v, ])
+  
+  # predict Ozone using the fitted models on fold == v
+  pred.solar.cv <- predict(model.solar.cv, newdata=air.data2[folds==v, ])
+  pred.wind.cv <- predict(model.wind.cv, newdata=air.data2[folds==v, ])
+  pred.temp.cv <- predict(model.temp.cv, newdata=air.data2[folds==v, ])
+  pred.all.cv <- predict(model.all.cv, newdata=air.data2[folds==v, ])
+  pred.comp.cv <- predict(model.comp.cv, newdata=air.data2[folds==v, ])
+  
+  # calculated MSPEs for 5 models for each v fold
+  MSPEs.cv[v, 1] <- mean((air.data2[folds==v, "Ozone"] - pred.solar.cv)^2)
+  MSPEs.cv[v, 2] <- mean((air.data2[folds==v, "Ozone"] - pred.wind.cv)^2)
+  MSPEs.cv[v, 3] <- mean((air.data2[folds==v, "Ozone"] - pred.temp.cv)^2)
+  MSPEs.cv[v, 4] <- mean((air.data2[folds==v, "Ozone"] - pred.all.cv)^2)
+  MSPEs.cv[v, 5] <- mean((air.data2[folds==v, "Ozone"] - pred.comp.cv)^2)
+}
+##MSPEs.cv
+# calculate mean MSPEs of v folds
+(MSPEcv <- apply(X = MSPEs.cv, MARGIN = 2, FUN = mean))
+# calculate 95% CI for each model
+MSPEcv.sd <- apply(X = MSPEs.cv, MARGIN = 2, FUN = sd)
+MSPEcv.CIl <- MSPEcv - qt(p = .975, df = V - 1) * MSPEcv.sd / sqrt(V)
+MSPEcv.CIu <- MSPEcv + qt(p = .975, df = V - 1) * MSPEcv.sd / sqrt(V)
+round(cbind(MSPEcv.CIl, MSPEcv.CIu), 2)
+```
+### a. 
+The two good models for prediction are as follows: The first model, 'model.comp,' incorporates curvature and interactions with the formula =  Temp + Wind + Solar.R + (Temp\^2) + (Wind\^2) + (Solar.R\^2) + Temp\*Wind + Temp\*Solar.R + Wind\*Solar.R. The second model, denoted as 'model.all,' utilizes all three variables with the formula = Solar.R + Wind + Temp. In contrast, the three models using a single variable each are considered poor choices for prediction.
+
+## Question 5
+```{r}
+# repeat cross-validation 20 times
+R <- 20
+# create matrix for MSPEs for 5 models
+MSPEs.cv20 <- matrix(NA, nrow = V * R, ncol = 5)
+colnames(MSPEs.cv20) <- c("solar-c", "wind-c", "temp-c", "all-c", "comp-c")
+# run 20 times
+for (r in 1:R) {
+  # sample the folds
+  folds <- floor((sample.int(n) - 1) * V / n) + 1
+  # run cross-validation each run
+  for (v in 1:V) {
+    # fit 5 models on fold == !v
+    model.solar.cv <- lm(Ozone ~ Solar.R, data=air.data2[folds!=v, ])
+    model.wind.cv <- lm(Ozone ~ Wind, data=air.data2[folds!=v, ])
+    model.temp.cv <- lm(Ozone ~ Temp, data=air.data2[folds!=v, ])
+    model.all.cv <- lm(Ozone ~ ., data=air.data2[folds!=v, ])
+    model.comp.cv <- lm(Ozone ~ Temp+Wind+Solar.R+I(Temp^2)+I(Wind^2)+I(Solar.R^2)
+                        +Temp*Wind+Temp*Solar.R+Wind*Solar.R, data=air.data2[folds!=v, ])
+    
+    # predict Ozone using the fitted models on fold == v
+    pred.solar.cv <- predict(model.solar.cv, newdata=air.data2[folds==v, ])
+    pred.wind.cv <- predict(model.wind.cv, newdata=air.data2[folds==v, ])
+    pred.temp.cv <- predict(model.temp.cv, newdata=air.data2[folds==v, ])
+    pred.all.cv <- predict(model.all.cv, newdata=air.data2[folds==v, ])
+    pred.comp.cv <- predict(model.comp.cv, newdata=air.data2[folds==v, ])
+    
+    # calculated MSPEs for 5 models for each v fold
+    MSPEs.cv20[(r - 1) * V + v, 1] <- mean((air.data2[folds==v, "Ozone"] - pred.solar.cv)^2)
+    MSPEs.cv20[(r - 1) * V + v, 2] <- mean((air.data2[folds==v, "Ozone"] - pred.wind.cv)^2)
+    MSPEs.cv20[(r - 1) * V + v, 3] <- mean((air.data2[folds==v, "Ozone"] - pred.temp.cv)^2)
+    MSPEs.cv20[(r - 1) * V + v, 4] <- mean((air.data2[folds==v, "Ozone"] - pred.all.cv)^2)
+    MSPEs.cv20[(r - 1) * V + v, 5] <- mean((air.data2[folds==v, "Ozone"] - pred.comp.cv)^2)
+  }
+}
+##MSPEs.cv20
+##(MSPEcv20 <- apply(X = MSPEs.cv20, MARGIN = 2, FUN = mean))
+```
+### a.
+```{r}
+# create boxplots for MSPEs
+boxplot(MSPEs.cv20, main = "MSPE \n Cross-Validation")
+```
+
+### b.
+```{r}
+# create boxplots for RMSPEs
+low.cv <- apply(MSPEs.cv20, 1, min)
+boxplot(MSPEs.cv20 / low.cv,
+        las = 2,
+        main = "Relative MSPE \n Cross-Validation"
+)
+```
+
+## Question 6
+Based on the analysis, I would suggest using the model that allows curvature and interactions denoted as 'model.comp' with the formula = Temp + Wind + Solar.R + (Temp\^2) + (Wind\^2) + (Solar.R\^2) + Temp\*Wind + Temp\*Solar.R + Wind\*Solar.R as it has the lowest MSPE among all five models and would be the best model for prediction.
+
+# 4. Problem Set, Question 5B, Categorical Explanatories
+```{r}
+# read data
+ins <- read.csv("Insurance.csv", header=TRUE)
+# convert zone and make to categorical vars
+ins$zone <- as.factor(ins$zone)
+ins$make <- as.factor(ins$make)
+##class(ins$zone)
+##class(ins$make)
+# remove claims == 0
+ins <- ins[ins$claims>0,]
+##nrow(ins)
+```
+## a(i).
+```{r}
+# build a model using all vars
+model <- lm(per ~ ., data=ins)
+summary(model)
+```
+A total of 18 parameters and the intercept, are estimated in the model.
+
+## a(ii).
+When make and zone are both at their first levels, 1, the intercept of the regression model is 11.86.
+
+## a(iii).
+when make and zone are both at their last levels, 9 and 7, respectively,the intercept of the regression model is 10.457 (11.86 + 1.459 -2.862).
+
+
+

@@ -1,0 +1,527 @@
+---
+title: "Project 1 (Report)"
+author: "Asif Hasan - 301376671"
+date: "2023-11-26"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, eval=FALSE)
+```
+
+#### Introduction:
+For the prediction problem, we are presented with 21 numeric predictor variables, denoted as X1 to X21. The primary goal is to predict the corresponding numeric response variable, Y.
+```{r}
+# import all necessary libraries
+library(dplyr)
+library(corrplot)
+library(MASS) # for ridge
+library(glmnet) # for LASSO
+library(rpart) # for decision trees
+library(rpart.plot)
+library(randomForest) # for random forest
+library(gbm) # for boosted trees
+```
+```{r}
+# read train dataset
+df <- read.csv('training_data.csv', header=TRUE)
+summary(df)
+head(df)
+```
+
+#### Correlation Analysis:
+We computed the correlation matrix for the numeric variables and visualize the correlations to identify potential multicollinearity. We observe that variables X5, X11, X12, X13, X20 and X21 are correlated with each other.
+```{r}
+# compute correlations
+corrMatrix <- cor(select_if(df, is.numeric))
+corrplot(corrMatrix, method="number", type="lower", diag=FALSE, number.cex=0.7)
+```
+
+#### Least Squares Regression:
+To assess the performance of all other models of our choice compared to a base model in the model selection process, we employed a least squares regression model with all 21 variables as the base model, irrespective of multicollinearity among the variables.
+
+#### Hybrid Stepwise Regression:
+We utilized a hybrid stepwise regression on the complete training dataset to identify important variables, considering the minimum AIC value. Our observations reveal that the variables X1, X5, X8, X12, X13, X18, X21, and X20 were selected as the most significant contributors explaining the variance in the response variable Y. This method was applied during the model selection process to assess all our chosen models.
+```{r}
+# fit step-wise regression
+initial <- lm(
+  data = df,
+  formula = Y ~ 1
+)
+final <- lm(
+  data = df,
+  formula = Y ~ .
+)
+step <- step(
+  object = initial, scope = list(upper = final),
+  k = log(nrow(df))
+)
+summary(step)
+## 7 selected vars: X18, X21, X13, X8, X20,  X12, X1, & X5 ##
+```
+
+#### Ridge Regression:
+We employed ridge regression on the entire training dataset, investigating a range of $\lambda$ values from $0$ to $100$ at intervals of $0.05$. Through this exploration, we identified the optimal $\lambda$ value for the regression problem as $\lambda_{\text{min}} = 0.45$. This method was then utilized in the model selection process to evaluate our models.
+```{r}
+# fit a ridge
+ridge <- lm.ridge(Y ~ ., lambda = seq(0, 100, .05), data = df)
+plot(ridge)
+select(ridge)
+which.min(ridge$GCV)
+(coef.ri.best <- coef(ridge)[which.min(ridge$GCV), ])
+## lambda-man: 0.45 ##
+```
+
+#### LASSO Regression:
+We performed LASSO regression on the predictor variables of the entire training dataset, utilizing both $\lambda_{\text{min}}$ and $\lambda_{\text{1SE}}$ for predicting the response variable Y. Notably, when using $\lambda_{\text{min}} = 0.0003034$, the coefficient values closely resemble those obtained from ridge regression. On the other hand, with $\lambda_{\text{1SE}} = 0.06096$, the variables with non-zero coefficients are X1, X4, X5, X8, X9, X13, X14, X18, X19, X20, and X21. In the model selection process, we employed both the $\lambda_{\text{min}}$ and $\lambda_{\text{1SE}}$ approaches of this method to assess the performance of our models.
+```{r}
+lasso <- cv.glmnet(y = as.matrix(df[, 1]), x = as.matrix(df[, c(2:22)]), 
+                   family = "gaussian"
+)
+plot(lasso)
+lasso
+# lambda min
+lasso$lambda.min
+# lambda 1se
+lasso$lambda.1se
+# get the coefficient estimates
+coef(lasso, s = lasso$lambda.min) 
+coef(lasso, s = lasso$lambda.1se)
+## 11 non-zero coef of lambda-1se (unordered): X1, X4, X5, X8, X9, X13, X14, X18, X19, X20, & X21##
+```
+
+#### Decision Trees:
+We employed a decision tree model to compare the performance of linear models with that of a basic tree model. Initially, we fitted the model with a complexity parameter value of zero, $cp = 0$, to the entire training dataset. Optimal values were identified as $cp_{\text{min}} = 0.001239$ and $cp_{\text{1SE}} = 0.001415$. Subsequently, we pruned the tree based on the values of $cp_{\text{min}}$ and $cp_{\text{1SE}}$. In the model selection process, we utilized both the $cp_{\text{min}}$ and $cp_{\text{1SE}}$ tree pruning approaches of this method to evaluate the performance of our models.
+```{r}
+# fit decision trees
+tree <- rpart(Y ~ ., method = "anova", data = df, cp = 0)
+cpt <- tree$cptable
+plotcp(tree)
+# find location of minimum error
+minrow <- which.min(cpt[, 4])
+# take geometric mean of cp values at min error and one step up
+cplow.min <- cpt[minrow, 1]
+cpup.min <- ifelse(minrow == 1, yes = 1, no = cpt[minrow - 1, 1])
+cp.min <- sqrt(cplow.min * cpup.min)
+# find smallest row where error is below +1SE
+se.row <- min(which(cpt[, 4] < cpt[minrow, 4] + cpt[minrow, 5]))
+# take geometric mean of cp values at min error and one step up
+cplow.1se <- cpt[se.row, 1]
+cpup.1se <- ifelse(se.row == 1, yes = 1, no = cpt[se.row - 1, 1])
+cp.1se <- sqrt(cplow.1se * cpup.1se)
+# do pruning each way
+tree.prune.min <- prune(tree, cp = cp.min)
+tree.prune.1se <- prune(tree, cp = cp.1se)
+# plot tress
+#prp(tree.prune.min, type = 1, extra = 1, main = "Tree pruned to Min CV Error")
+#prp(tree.prune.1se, type = 1, extra = 1, main = "Tree pruned to +1SE CV Error")
+```
+
+#### Random Forest:
+Given the presence of three tuning parameters—specifically, the number of individual trees to be fitted ($ntree(B)$), the number of variables considered at each split ($mtry(m)$), and the minimum number of observations in each node that can be split ($nodesize(ns)$)—and considering the large dataset, we employed a four-step iterative process to identify optimal values for these tuning parameters.
+
+In the first iteration, we applied the random forest model to the entire dataset with $B = 1,000$ to assess the optimality of fitting $1,000$ trees. We observed that the out-of-bag (OOB) error stabilized at around $800$ trees, leading us to use $B = 1,000$ for subsequent iterations.
+
+For the second iteration, we randomly sampled 10% of the training data in three repetitions, exploring values for $m$ ranging from $1$ to $10$ and $ns$ values of $1$, $3$, $5$, $7$, $10$, $15$, and $20$. Based on the OOB error, we identified that $m$ less than $6$ and $ns$ greater than $10$ were suboptimal. Notably, $m = 10$ and $ns = 3$ constituted the best set of tuning parameters.
+
+In the third iteration, with 15% of the training data randomly sampled in five repetitions, we explored $m$ values from $6$ to $10$ and $ns$ values of $1$, $3$, $5$, $7$, and $10$. The analysis revealed that $m$ less than $8$ and $ns$ greater than $7$ were unfavorable, reiterating that $m = 10$ and $ns = 3$ remained the optimal parameters.
+
+In the final iteration, using 20% of the training data randomly sampled in five repetitions, we explored $m$ values of $8$, $9$, and $10$, as well as $ns$ values from $1$ to $6$. Based on the OOB error, the best set of parameters was determined as $m = 10$ and $ns = 4$ (RF-1), with the second-best set being $m = 10$ and $ns = 2$ (RF-2).
+
+Upon further examination of variable importance using the best tuning parameters, RF-1, and fitting the model to the entire dataset, nine important variables were identified in order of importance: X8, X21, X18, X12, X20, X1, X11, X13, and X5. In the model selection process, we utilized the two best sets of parameters, RF-1 and RF-2, to evaluate our selected models.
+```{r}
+set.seed(564781)
+# fit a random forest with only ntree
+rf <- randomForest(
+  data = df, Y ~ ., ntree = 1000,
+  importance = TRUE, keep.forest = TRUE
+)
+plot(rf, main = "OOB Error")
+## 1000 trees are okay ##
+# tune parameters - 1
+set.seed(564781)
+n <- nrow(df)
+sf <- 0.1
+reorder <- sample.int(n)
+set <- ifelse(test = (reorder < sf * n), yes = 1, no=2)
+df_small <- df[set==1,]
+reps <- 3
+varz <- 1:10
+nodez <- c(1, 3, 5, 7, 10, 15, 20)
+NS <- length(nodez)
+M <- length(varz)
+rf.oob <- matrix(NA, nrow = M * NS, ncol = reps)
+for (r in 1:reps) {
+  counter <- 1
+  for (m in varz) {
+    for (ns in nodez) {
+      rfm <- randomForest(
+        data = df_small, Y ~ ., ntree = 1000,
+        mtry = m, nodesize = ns
+      )
+      rf.oob[counter, r] <- mean((predict(rfm) - df_small$Y)^2)
+      counter <- counter + 1
+    }
+  }
+}
+parms <- expand.grid(nodez, varz)
+row.names(rf.oob) <- paste(parms[, 2], parms[, 1], sep = "|")
+mean.oob <- apply(rf.oob, 1, mean)
+min.oob <- apply(rf.oob, 2, min)
+boxplot(rf.oob, use.cols = FALSE, las = 2)
+boxplot(t(rf.oob) / min.oob,
+        use.cols = TRUE, las = 2,
+        main = "RF Tuning Variables and Node Sizes")
+## worst: varz > 6 ##
+## worst: nodez < 10 ##
+## best: 10|3 ##
+# tune paramaeter - 2
+set.seed(564781)
+n <- nrow(df)
+sf <- 0.15
+reorder <- sample.int(n)
+set <- ifelse(test = (reorder < sf * n), yes = 1, no=2)
+df_small <- df[set==1,]
+reps <- 5
+varz <- 6:10
+nodez <- c(1, 3, 5, 7, 10)
+NS <- length(nodez)
+M <- length(varz)
+rf.oob <- matrix(NA, nrow = M * NS, ncol = reps)
+for (r in 1:reps) {
+  counter <- 1
+  for (m in varz) {
+    for (ns in nodez) {
+      rfm <- randomForest(
+        data = df_small, Y ~ ., ntree = 1000,
+        mtry = m, nodesize = ns
+      )
+      rf.oob[counter, r] <- mean((predict(rfm) - df_small$Y)^2)
+      counter <- counter + 1
+    }
+  }
+}
+parms <- expand.grid(nodez, varz)
+row.names(rf.oob) <- paste(parms[, 2], parms[, 1], sep = "|")
+mean.oob <- apply(rf.oob, 1, mean)
+min.oob <- apply(rf.oob, 2, min)
+boxplot(rf.oob, use.cols = FALSE, las = 2)
+boxplot(t(rf.oob) / min.oob,
+        use.cols = TRUE, las = 2,
+        main = "RF Tuning Variables and Node Sizes")
+## worst: varz > 8 ##
+## worst: nodez < 7 ##
+## best: 10|3 ##
+# tune paramaeter - 3
+set.seed(564781)
+n <- nrow(df)
+sf <- 0.20
+reorder <- sample.int(n)
+set <- ifelse(test = (reorder < sf * n), yes = 1, no=2)
+df_small <- df[set==1,]
+reps <- 5
+varz <- 8:10
+nodez <- 1:6
+NS <- length(nodez)
+M <- length(varz)
+rf.oob <- matrix(NA, nrow = M * NS, ncol = reps)
+for (r in 1:reps) {
+  counter <- 1
+  for (m in varz) {
+    for (ns in nodez) {
+      rfm <- randomForest(
+        data = df_small, Y ~ ., ntree = 1000,
+        mtry = m, nodesize = ns
+      )
+      rf.oob[counter, r] <- mean((predict(rfm) - df_small$Y)^2)
+      counter <- counter + 1
+    }
+  }
+}
+parms <- expand.grid(nodez, varz)
+row.names(rf.oob) <- paste(parms[, 2], parms[, 1], sep = "|")
+mean.oob <- apply(rf.oob, 1, mean)
+min.oob <- apply(rf.oob, 2, min)
+boxplot(rf.oob, use.cols = FALSE, las = 2)
+boxplot(t(rf.oob) / min.oob,
+        use.cols = TRUE, las = 2,
+        main = "RF Tuning Variables and Node Sizes")
+## best_1: 10|4 ##
+## best_2: 10|2 ##
+# fit a random forest with best params
+set.seed(564781)
+rf <- randomForest(
+  data = df, Y ~ .,
+  ntree = 1000, mtry = 10, nodesize = 4,
+  importance = TRUE, keep.forest = TRUE
+)
+plot(rf, main = "OOB Error")
+importance(rf)
+varImpPlot(rf, main = "RF Variable Importance Plots")
+## imp vars: 9; X8, X21, X18, X12, X20, X1, X11, X13, & X5 ##
+```
+
+#### Boosted Trees:
+We adopted a similar approach to tune parameters for the boosted trees model as employed for the random forest model. However, in the case of boosted trees, only three iterations were necessary to identify optimal values for the tuning parameters—specifically, the number of individual trees to be fitted $(n.trees(B))$, the depth of the tree ($interaction.depth (d)$), and the shrinkage parameter ($shrinkage(\lambda)$).
+
+In the first iteration, we fitted the model to the entire dataset using $B = 10,000$. We observed that the out-of-bag (OOB) error stabilized at around $8,000$ trees, leading us to use $B = 10,000$ for subsequent iterations.
+
+For the second iteration, using 10% of the training data randomly and two repetitions of 2-fold cross-validation, we explored $d$ values from $1$ to $5$ and $\lambda$ values of $0.001$, $0.005$, $0.025$, and $0.125$. The analysis revealed that $d$ less than $3$ and $\lambda$ greater than or equal to $0.125$ were suboptimal. Notably, we found that $d = 5$ and $\lambda = 0.005$ constituted the best set of tuning parameters.
+
+In the final iteration, using 20% of the training data randomly and three repetitions of 2-fold cross-validation, we explored $d$ values from $3$ to $8$ and $\lambda$ values of $0.001$, $0.005$, $0.025$, $0.05$, $0.075$, and $0.01$. Based on the OOB error, we identified the best set of values for the tuning parameters as $d = 8$ and $\lambda = 0.001$ (BT-1), with the second-best set being $d = 8$ and $\lambda = 0.025$ (BT-2).
+
+Upon examining the importance of variables using the best tuning parameters (BT-1) and fitting the model to the entire dataset, we identified nine variables deemed important in this method. In order of importance, they are X18, X21, X8, X12, X13, X11, X20, X1, and X5. Notably, these variables align with those identified by the random forest as important, although the order of importance differs. Similar to the random forest, we utilized the best two sets of parameters, BT-1 and BT-2, to evaluate our models in the model selection process.
+```{r}
+set.seed(564781)
+# fit a boosted trees with only n.trees
+bt <- gbm(
+  data = df, Y ~ ., distribution = "gaussian",
+  n.trees = 10000,
+  bag.fraction = 0.8
+)
+gbm.perf(bt, method = "OOB", oobag.curve = TRUE)
+## 10000 trees are okay ##
+# tune parameters - 1
+set.seed(564781)
+n <- nrow(df)
+sf <- 0.10
+reorder <- sample.int(n)
+set <- ifelse(test = (reorder < sf * n), yes = 1, no=2)
+df_small <- df[set==1,]
+V <- 2
+R <- 2
+n2 <- nrow(df_small)
+folds <- matrix(NA, nrow = n2, ncol = R)
+for (r in 1:R) {
+  folds[, r] <- floor((sample.int(n2) - 1) * V / n2) + 1
+}
+shr <- c(.001, .005, .025, .125)
+dep <- 1:5
+trees <- 10000
+NS <- length(shr)
+ND <- length(dep)
+gb.cv <- matrix(NA, nrow = ND * NS, ncol = V * R)
+opt.tree <- matrix(NA, nrow = ND * NS, ncol = V * R)
+qq <- 1
+for (r in 1:R) {
+  for (v in 1:V) {
+    train <- df_small[folds[, r] != v, ]
+    test <- df_small[folds[, r] == v, ]
+    counter <- 1
+    for (d in dep) {
+      for (s in shr) {
+        btm <- gbm(
+          data = train, Y ~ ., distribution = "gaussian",
+          n.trees = trees, interaction.depth = d, shrinkage = s,
+          bag.fraction = 0.8
+        )
+        treenum <- min(trees, 2 * gbm.perf(btm, method = "OOB", 
+                                           plot.it = FALSE))
+        opt.tree[counter, qq] <- treenum
+        preds <- predict(btm, newdata = test, n.trees = treenum)
+        gb.cv[counter, qq] <- mean((preds - test$Y)^2)
+        counter <- counter + 1
+      }
+    }
+    qq <- qq + 1
+  }
+}
+parms <- expand.grid(shr, dep)
+row.names(gb.cv) <- paste(parms[, 2], parms[, 1], sep = "|")
+row.names(opt.tree) <- paste(parms[, 2], parms[, 1], sep = "|")
+opt.tree
+gb.cv
+(mean.tree <- apply(opt.tree, 1, mean))
+(mean.cv <- sqrt(apply(gb.cv, 1, mean)))
+min.cv <- apply(gb.cv, 2, min)
+boxplot(sqrt(gb.cv), use.cols = FALSE, las = 2)
+boxplot(sqrt(t(gb.cv) / min.cv),
+        use.cols = TRUE, las = 2,
+        main = "GBM Fine-Tuning Variables and Node Sizes"
+)
+## worst: dep > 3 ##
+## worst: shr <= 0.125 ##
+## best: 5|0.025 ##
+# tune parameters - 2
+set.seed(564781)
+n <- nrow(df)
+sf <- 0.20
+reorder <- sample.int(n)
+set <- ifelse(test = (reorder < sf * n), yes = 1, no=2)
+df_small <- df[set==1,]
+V <- 2
+R <- 3
+n2 <- nrow(df_small)
+folds <- matrix(NA, nrow = n2, ncol = R)
+for (r in 1:R) {
+  folds[, r] <- floor((sample.int(n2) - 1) * V / n2) + 1
+}
+shr <- c(.001, .005, .025, .05, .075, .01)
+dep <- 3:8
+trees <- 10000
+NS <- length(shr)
+ND <- length(dep)
+gb.cv <- matrix(NA, nrow = ND * NS, ncol = V * R)
+opt.tree <- matrix(NA, nrow = ND * NS, ncol = V * R)
+qq <- 1
+for (r in 1:R) {
+  for (v in 1:V) {
+    train <- df_small[folds[, r] != v, ]
+    test <- df_small[folds[, r] == v, ]
+    counter <- 1
+    for (d in dep) {
+      for (s in shr) {
+        btm <- gbm(
+          data = train, Y ~ ., distribution = "gaussian",
+          n.trees = trees, interaction.depth = d, shrinkage = s,
+          bag.fraction = 0.8
+        )
+        treenum <- min(trees, 2 * gbm.perf(btm, method = "OOB", 
+                                           plot.it = FALSE))
+        opt.tree[counter, qq] <- treenum
+        preds <- predict(btm, newdata = test, n.trees = treenum)
+        gb.cv[counter, qq] <- mean((preds - test$Y)^2)
+        counter <- counter + 1
+      }
+    }
+    qq <- qq + 1
+  }
+}
+parms <- expand.grid(shr, dep)
+row.names(gb.cv) <- paste(parms[, 2], parms[, 1], sep = "|")
+row.names(opt.tree) <- paste(parms[, 2], parms[, 1], sep = "|")
+opt.tree
+gb.cv
+(mean.tree <- apply(opt.tree, 1, mean))
+(mean.cv <- sqrt(apply(gb.cv, 1, mean)))
+min.cv <- apply(gb.cv, 2, min)
+boxplot(sqrt(gb.cv), use.cols = FALSE, las = 2)
+boxplot(sqrt(t(gb.cv) / min.cv),
+        use.cols = TRUE, las = 2,
+        main = "GBM Fine-Tuning Variables and Node Sizes"
+)
+## best_1: 8|0.001 ##
+## best_2 : 8|0.025 ##
+# fit a boosted trees with best params
+set.seed(564781)
+bt <- gbm(
+  data = df, Y ~ ., distribution = "gaussian",
+  n.trees = 10000, interaction.depth = 8, shrinkage = 0.001,
+  bag.fraction = 0.8
+)
+gbm.perf(bt, method = "OOB", oobag.curve = TRUE)
+summary(bt)
+## imp vars: 9; X18, X21, X8, X12, X13, X11, X20, X1, & X5 ##
+```
+
+#### Model Selection:
+Our selection comprises 11 models: Least Squares Regression (Base Model), Hybrid Stepwise Regression, Ridge Regression-$\lambda_{\text{min}}$, LASSO Regression-$\lambda_{\text{min}}$, LASSO Regression-$\lambda_{\text{1SE}}$, Decision Trees-$cp_{\text{min}}$, Decision Trees-$cp_{\text{1SE}}$, Best Random Forest (RF-1), Second-best Random Forest (RF-2), Best Boosted Trees (BT-1), and Second-best Boosted Trees (BT-2). Utilizing 5-fold cross-validation, we computed the mean squared prediction errors (MSPEs) for all the mentioned models.
+
+The most effective model, demonstrated by the lowest mean squared prediction error (MSPE) of 1.778, is the Boosted Trees model with the second-best set of tuned parameters ($B = 10,000$, $d = 8$, and $\lambda = 0.025$), referred to as BT-2. Following at a distance is the Random Forest model with the best set of tuned parameters ($B = 1,000$, $m = 10$, and $ns = 4$), labeled as RF-1, showing a mean MSPE of 18.68. The provided code corresponds to the results described here.
+```{r, echo=TRUE, collapse = TRUE}
+set.seed(564781)
+# set number of folds
+V <- 5
+# sample the folds
+folds <- floor((sample.int(nrow(df)) - 1) * V / nrow(df)) + 1
+# create matrix for MSPEs for 11 models
+MSPEs.cv <- matrix(NA, nrow = V, ncol = 11)
+colnames(MSPEs.cv) <- c("LS", "Step-hybrid", "Ridge", "LASSO-min", "LASSO-1SE", 
+                        "dTrees-min", "dTrees-1SE", "RandomF-1", "RandomF-2", 
+                        "BoostedT-1", "BoostedT-2")
+# run cross-validation in for-loop
+for(v in 1:V) {
+  # fit 11 models on fold == !v
+  model.ls.cv <- lm(Y ~ ., data=df[folds!=v, ])
+  model.step.cv <- step <- step(
+    object = lm(data=df[folds!=v, ], formula = Y ~ 1), 
+    scope = list(upper = lm(data=df[folds!=v, ], formula = Y ~ .)),
+    k = log(nrow(df[folds!=v, ])))
+  model.ridge.cv <- lm.ridge(Y ~ ., lambda=seq(0, 100, .05), df[folds!=v, ])
+  model.lasso.cv <- cv.glmnet(family = "gaussian",
+    y = as.matrix(df[folds!=v, 1]), x = as.matrix(df[folds!=v, c(2:22)]), )
+  model.tree.cv <- rpart(Y ~ ., method = "anova", data = df[folds!=v, ], cp = 0)
+  cpt <- model.tree.cv$cptable
+  minrow <- which.min(cpt[, 4])
+  cplow.min <- cpt[minrow, 1]; cpup.min <- ifelse(minrow==1, yes=1, no=cpt[minrow-1, 1])
+  cp.min <- sqrt(cplow.min * cpup.min)
+  se.row <- min(which(cpt[, 4] < cpt[minrow, 4] + cpt[minrow, 5]))
+  cplow.1se <- cpt[se.row, 1]; cpup.1se <- ifelse(se.row==1, yes=1, no=cpt[se.row-1, 1])
+  cp.1se <- sqrt(cplow.1se * cpup.1se)
+  model.tree.cv.prune.min <- prune(model.tree.cv, cp = cp.min)
+  model.tree.cv.prune.1se <- prune(model.tree.cv, cp = cp.1se)
+  model.rf1.cv <- randomForest(data = df[folds!=v, ], Y ~ .,
+    nodesize = 4, ntree = 1000, mtry = 10)
+  model.rf2.cv <- randomForest(data = df[folds!=v, ], Y ~ .,
+    ntree = 1000, nodesize = 10, mtry = 2)
+  model.bt1.cv <- gbm(data = df, Y ~ ., distribution = "gaussian",
+    n.trees = 10000, interaction.depth = 8, shrinkage = 0.001)
+  model.bt2.cv <- gbm(data = df, Y ~ ., distribution = "gaussian",
+    n.trees = 10000, interaction.depth = 8, shrinkage = 0.025)
+  
+  # predict Y using the fitted models on fold == v
+  pred.ls.cv <- predict(model.ls.cv, newdata=df[folds==v, ])
+  pred.step.cv <- predict(model.step.cv, newdata=df[folds==v, ])
+  pred.ridge.cv <- as.matrix(cbind(1, df[folds==v, 2:22])) %*% 
+    coef(model.ridge.cv)[which.min(model.ridge.cv$GCV), ]
+  pred.lasso.min.cv <- predict(model.lasso.cv, newx=as.matrix(df[folds==v, c(2:22)]), 
+                               s=model.lasso.cv$lambda.min)
+  pred.lasso.1se.cv <- predict(model.lasso.cv, newx=as.matrix(df[folds==v, c(2:22)]), 
+                               s=model.lasso.cv$lambda.1se)
+  pred.tree.min.cv <- predict( model.tree.cv.prune.min, newdata=df[folds==v, ])
+  pred.tree.1se.cv <- predict( model.tree.cv.prune.1se, newdata=df[folds==v, ])
+  pred.rf1.cv <- predict( model.rf1.cv, newdata=df[folds==v, ])
+  pred.rf2.cv <- predict( model.rf2.cv, newdata=df[folds==v, ])
+  pred.bt1.cv <- predict( model.bt1.cv, newdata=df[folds==v, ])
+  pred.bt2.cv <- predict( model.bt2.cv, newdata=df[folds==v, ])
+  
+  # calculated MSPEs for 11 models for each v fold
+  MSPEs.cv[v, 1] <- mean((df[folds==v, "Y"] - pred.ls.cv)^2)
+  MSPEs.cv[v, 2] <- mean((df[folds==v, "Y"] - pred.step.cv)^2)
+  MSPEs.cv[v, 3] <- mean((df[folds==v, "Y"] - pred.ridge.cv)^2)
+  MSPEs.cv[v, 4] <- mean((df[folds==v, "Y"] - pred.lasso.min.cv)^2)
+  MSPEs.cv[v, 5] <- mean((df[folds==v, "Y"] - pred.lasso.1se.cv)^2)
+  MSPEs.cv[v, 6] <- mean((df[folds==v, "Y"] - pred.tree.min.cv)^2)
+  MSPEs.cv[v, 7] <- mean((df[folds==v, "Y"] - pred.tree.1se.cv)^2)
+  MSPEs.cv[v, 8] <- mean((df[folds==v, "Y"] - pred.rf1.cv)^2)
+  MSPEs.cv[v, 9] <- mean((df[folds==v, "Y"] - pred.rf2.cv)^2) 
+  MSPEs.cv[v, 10] <- mean((df[folds==v, "Y"] - pred.bt1.cv)^2) 
+  MSPEs.cv[v, 11] <- mean((df[folds==v, "Y"] - pred.bt2.cv)^2) 
+}
+# get the MSPEs for each 5 folds
+MSPEs.cv
+# get the mean MSPEs
+(MSPEcv <- apply(X = MSPEs.cv, MARGIN = 2, FUN = mean))
+# create boxplots for MSPEs
+boxplot(MSPEs.cv, main = "MSPE \n Cross-Validation")
+# create boxplots for relative MSPEs
+low.cv <- apply(MSPEs.cv, 1, min)
+boxplot(MSPEs.cv / low.cv, las = 2, main = "Relative MSPE \n Cross-Validation")
+```
+
+#### Final Model and Predictions:
+Based on the previous analysis, a substantial difference in the mean MSPE is evident between the two best-performing models. Therefore, we opted for the boosted trees model with tuned parameters: $B=10,000$, $d = 8$, and $\lambda = 0.025$ (BT-2) to make predictions on the test set. We trained the model on the training dataset and examined the variables considered most important. Notably, the top five variables in order of importance are X18, X21, X8, X12, and X1; it is noteworthy that these five variables are not correlated. Subsequently, we used the model to predict the response variable Y using the test dataset and saved the predictions in a CSV file.
+```{r}
+# fit boosted trees using full train dataset (df) with best params
+set.seed(564781)
+bt.main <- gbm(data = df, Y ~ ., distribution = "gaussian",
+               n.trees = 10000, interaction.depth = 8, shrinkage = 0.025)
+summary(bt.main)
+# read the test dataset
+df2 <- read.csv('test_predictors.csv', header=TRUE)
+# get predictions
+predictions <- predict(bt.main, newdata=df2)
+# save predictions for submission
+write.table(predictions,
+            "proj01_test_preds.csv",
+            row.names=FALSE,
+            col.names=FALSE)
+```
+
+#### Important Predictor Variables:
+Employing the methods and metrics, we can be certain that variables X2, X3, X6, X7, X10, X14, X15, X16, and X17 are deemed not important. Taking into account the multicollinearity issue, we can safely estimate that the number of true (uncorrelated) predictors is five.
+
+#### Conclusion:
+In summary, we observe that variables X5, X11, X12, X13, X20, and X21 are correlated with each other. Additionally, variables X2, X3, X6, X7, X10, X14, X15, X16, and X17 do not explain the variance in the response variable Y. On the other hand, variables X1, X8, X12, X18, and X21 are identified as significant contributors, explaining a substantial portion of the variance in Y. Through cross-validation, we achieved the best mean MSPE of 1.778 using the boosted trees model with tuned parameters: $B=10,000$, $d = 8$, and $\lambda = 0.025$. Finally, we utilized the model to predict the response variable Y for the test dataset.
+
+Note: The code not shown is provided in the $rmd$ file. If you intend to execute the code within the $rmd$ file, modify 'eval=TRUE' in line 9 accordingly.
